@@ -12,7 +12,7 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
     const [arrayColores, setArrayColores] = useState<string[]>([]);
     const listaOpciones = document.querySelector("ul");
     const inputOpcionRef = useRef<HTMLInputElement>(null);
-    const colores = useRef<string[]>([]); 
+    const colores = useRef<string[]>([]);
     const handleText = (e: ChangeEvent<HTMLInputElement>) => {
         setTexto(e.currentTarget.value.toUpperCase());
     };
@@ -35,34 +35,32 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
         p.className = "p-5 ";
         p.style.backgroundColor = color;
         if (p) {
-                if(arrayOpciones.includes(texto) || texto === "" || texto === " "){
-                    const mensaje = document.getElementById("mensaje")
-                    if(mensaje){
-                        if(texto==="" || texto ===" ") mensaje.innerHTML = "Ingresa un valor!"
-                        
-                        if(arrayOpciones.includes(texto)) mensaje.innerHTML = "El valor ingresado ya existe!"
-                        mensaje.classList.remove("hidden")
-                        mensaje.classList.add("fade")
-                    }
-                    
-                    return
+            if (arrayOpciones.includes(texto) || texto === "" || texto === " ") {
+                const mensaje = document.getElementById("mensaje");
+                if (mensaje) {
+                    if (texto === "" || texto === " ") mensaje.innerHTML = "Ingresa un valor!";
+
+                    if (arrayOpciones.includes(texto)) mensaje.innerHTML = "El valor ingresado ya existe!";
+                    mensaje.classList.remove("hidden");
+                    mensaje.classList.add("fade");
                 }
-            
+
+                return;
+            }
+
             p.textContent = texto;
         }
-        
+
         arrayOpcionesMediador.push(texto);
         setArrayOpciones(arrayOpcionesMediador);
 
-        
         arrayColoresMediador.push(color);
         setArrayColores(arrayColoresMediador);
         //crear li contenedor de p
-        
+
         li.appendChild(p);
         listaOpciones?.appendChild(li);
 
-        
         if (input) {
             input.value = "";
             setTexto("");
@@ -70,7 +68,22 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
         if (inputOpcionRef.current) inputOpcionRef.current.focus();
     };
 
-    
+    const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        const valorSelect = parseInt(e.currentTarget.value);
+        const cantOpciones = arrayOpciones.length;
+        if (valorSelect < cantOpciones) {
+            obtenerCantGanadores(parseInt(e.target.value));
+            return;
+        }
+
+        const mensaje = document.getElementById("mensaje");
+        if (mensaje) mensaje.innerHTML = "Por favor, ingrese más opciones.";
+        const select = document.getElementById("selectGanadores") as HTMLSelectElement | null;
+        if (select) select.value = "1";
+        obtenerCantGanadores(1);
+        mensaje?.classList.remove("hidden");
+        mensaje?.classList.add("fade");
+    };
 
     function hsvToRgb(h: number, s: number, v: number) {
         var r = 0,
@@ -118,7 +131,7 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
         return Math.sqrt(Math.pow(c1[0] - c2[0], 2) + Math.pow(c1[1] - c2[1], 2) + Math.pow(c1[2] - c2[2], 2));
     }
 
-    function hexToRgb(hex:string) {
+    function hexToRgb(hex: string) {
         const bigint = parseInt(hex.slice(1), 16);
         const r = (bigint >> 16) & 255;
         const g = (bigint >> 8) & 255;
@@ -133,7 +146,6 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
         const numAzarVal = Math.random() * 0.1 + 0.9;
         const colorRgb = hsvToRgb(numAzarHue, numAzarSat, numAzarVal);
         const colorHex = rgbToHex(colorRgb);
-        
 
         for (let col of colores.current) {
             const existingColorRgb = hexToRgb(col);
@@ -141,7 +153,7 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
                 return getRandomColor();
             }
         }
-        
+
         colores.current.push(colorHex);
         return colorHex;
     }
@@ -155,13 +167,21 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
     }, [arrayOpciones, obtenerArrayOpciones]);
 
     return (
-        <div className="flex flex-col  gap-3 p-5 justify-center w-[33%] h-full  bg-[#121317] " id="gestorDatos">
-            <div className="flex flex-col gap-3 h-[30%] items-center justify-center w-full">
-                <h2 className="font-bold text-5xl text-center">SELECCIONA LA CANTIDAD DE GANADORES:</h2>
+        <div className="bg-[#121317] w-full hd:w-[33%]  h-full p-5 flex  flex-col justify-start items-center gap-3   " id="gestorDatos">
+            <div className="divRainbow w-full h-[10%] p-1 flex ">
+                <span className="w-full hd:h-full flex justify-center items-center p-3 bg-[#121317]   ">
+                    <h1 className="h1 font-bold  text-5xl tablet:text-7xl hd:text-5xl full-hd:text-7xl 2k:text-8xl">RULETIFY</h1>
+                </span>
+            </div>
+
+            <div className=" w-full  h-auto p-3 flex flex-col gap-3 justify-center   ">
+                <h2 className="font-bold text-left text-lg tablet:text-3xl hd:text-xl full-hd:text-3xl 2k:text-4xl  text-pretty">
+                    <b>SELECCIONA LA CANTIDAD DE GANADORES:</b>
+                </h2>
                 <select
                     id="selectGanadores"
-                    onChange={(e) => obtenerCantGanadores(parseInt(e.target.value))}
-                    className="text-black font-bold w-full appearance-none p-3"
+                    onChange={handleChange}
+                    className="text-black font-bold w-full hd:text-sm full-hd:text-2xl 2k:text-3xl appearance-none p-3 hover:animate-pulse "
                 >
                     <option value={1}>1 GANADOR</option>
                     <option value={2}>2 GANADORES</option>
@@ -171,28 +191,38 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
                 </select>
             </div>
 
-            <div className="flex flex-col  items-center gap-5  w-full h-[80%]  ">
-                <h2 className="font-bold text-5xl text-center  ">INGRESA LAS OPCIONES A SORTEAR:</h2>
-                
-                <div className="flex flex-row w-full ">
-                    <input
-                        ref={inputOpcionRef}
-                        onChange={handleText}
-                        onKeyDown={handleSubmit}
-                        
-                        placeholder="Escribe algo!"
-                        className="text-black font-bold appearance-none p-3 w-[92%]"
-                    />
-                    <button onClick={handleClick} className="w-[8%] border border-white">
-                        +
-                    </button>
-                </div>
-                <div className="w-full overflow-scroll min-h-[80%] overflow-x-hidden">
-                    <ul className="w-full  flex flex-col gap-5 pr-5 "></ul>
+            <div className="flex flex-col  items-center  overflow-hidden  gap-3  h-full   w-full  p-3  ">
+                <h2 className="font-bold text-lg tablet:text-3xl hd:text-xl full-hd:text-3xl 2k:text-4xl text-left self-start text-balance  ">
+                    <b>INGRESA LAS OPCIONES A SORTEAR:</b>
+                </h2>
+
+                <div className="flex flex-col items-center gap-3 max-h-full  w-full flex-1 overflow-hidden">
+                    <div className="flex flex-row w-full  ">
+                        <input
+                            ref={inputOpcionRef}
+                            onChange={handleText}
+                            onKeyDown={handleSubmit}
+                            placeholder="Escribe algo!"
+                            className="text-black  font-bold hd:text-sm full-hd:text-2xl 2k:text-3xl appearance-none p-3 w-[92%] "
+                        ></input>
+                        <button onClick={handleClick} className=" w-[15%] full-hd:w-[10%] 2k:w-[8%] aspect-square    bg-red-500 border  border-white">
+                            +
+                        </button>
+                    </div>
+
+                    <div className="w-full  h-full  overflow-x-hidden overflow-y-scroll barra-scroll  ">
+                        <ul className="w-full  flex flex-col   gap-5 pr-5    "></ul>
+                    </div>
                 </div>
             </div>
-            
-            
+
+            <button
+                id="boton"
+                className="text-white font-bold min-h-[5%] text-2xl mb-10 border  border-white w-[95%] h-48 hd:hidden"
+                onClick={handleClick}
+            >
+                Girar!
+            </button>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Ruleta from "../components/Ruleta";
 
 interface GeneradorRuletaProps {
@@ -14,16 +14,55 @@ interface RuletaObject {
 }
 
 export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayColores }: GeneradorRuletaProps) {
-    const ruletas: RuletaObject[] = [];
+    const [tamañoRuleta, setTamañoRuleta] = useState<number>(0);
+    const [ruletas, setRuletas] = useState<RuletaObject[]>([]);
 
-    for (let i = 0; i < cantGanadores; i++) {
-        const nroGanador: number = Math.floor(Math.random() * arrayOpciones.length);
-        const colorDelGanador: string = arrayColores[nroGanador];
-        const nombreGanador: string = arrayOpciones[nroGanador];
-        ruletas.push({ arrayOpciones: arrayOpciones, arrayColores: arrayColores, nroGanador: nroGanador, nombreGanador: nombreGanador });
-        arrayOpciones = arrayOpciones.filter((elem) => elem !== nombreGanador);
-        arrayColores = arrayColores.filter((elem) => elem !== colorDelGanador);
-    }
+    useEffect(() => {
+        const nuevasRuletas: RuletaObject[] = [];
+        let nuevoTamañoRuleta: number;
+        let opcionesRestantes = [...arrayOpciones];
+        let coloresRestantes = [...arrayColores];
+        let cantidadTamaño = 1;
+
+        for (let i = 0; i < cantGanadores; i++) {
+            const nroGanador: number = Math.floor(Math.random() * opcionesRestantes.length);
+            const colorDelGanador: string = coloresRestantes[nroGanador];
+            const nombreGanador: string = opcionesRestantes[nroGanador];
+            nuevasRuletas.push({ arrayOpciones: opcionesRestantes, arrayColores: coloresRestantes, nroGanador: nroGanador, nombreGanador: nombreGanador });
+            opcionesRestantes = opcionesRestantes.filter((elem) => elem !== nombreGanador);
+            coloresRestantes = coloresRestantes.filter((elem) => elem !== colorDelGanador);
+
+        }
+
+        switch (cantGanadores) {
+            case 1:
+                cantidadTamaño = 3;
+                break;
+            case 2:
+                cantidadTamaño = 4;
+                break;
+            default:
+                cantidadTamaño = 5;
+        }
+        if(window.innerWidth <= 500){
+            nuevoTamañoRuleta = window.innerWidth - (window.innerWidth*0.3 * cantGanadores)
+        }else if(window.innerWidth <= 1500){
+            nuevoTamañoRuleta = Math.abs(window.innerWidth  /cantidadTamaño*0.9)
+        }else if(window.innerWidth <= 3000){
+            nuevoTamañoRuleta = window.innerWidth / cantidadTamaño
+        }else{
+            nuevoTamañoRuleta = window.innerWidth *5
+        }
+        
+
+
+
+
+
+
+        setTamañoRuleta(nuevoTamañoRuleta);
+        setRuletas(nuevasRuletas);
+    }, [cantGanadores, arrayOpciones, arrayColores]);
 
     const animacionEnd = () => {
         const mensaje = document.getElementById("mensaje");
@@ -33,18 +72,10 @@ export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayCol
         }
     };
 
-    useEffect(() => {
-        for (let i = 0; i < cantGanadores; i++) {
-            if (i !== 0) {
-                const canvas = document.getElementById("ruleta" + i);
-                canvas?.classList.add("ruleta");
-            }
-        }
-    }, [arrayOpciones, cantGanadores]);
 
     const handleClick = () => {
-        const gestorDatos = document.getElementById("gestorDatos")
-        gestorDatos?.classList.add("pointer-events-none")
+        const gestorDatos = document.getElementById("gestorDatos");
+        gestorDatos?.classList.add("pointer-events-none");
         for (let i = 0; i < cantGanadores; i++) {
             const canvas = document.getElementById("ruleta" + i);
             const tiempoDelay: number = i * 5000;
@@ -62,29 +93,29 @@ export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayCol
     };
 
     return (
-        <div className="h-full  w-[67%] flex flex-col justify-center relative items-center  gap-5  ">
+        <div className="h-full w-full hd:w-[67%]  hd:flex flex-col justify-center relative items-center  gap-5 hidden ">
             <div className="h-full  w-full flex  flex-wrap justify-center items-center  gap-5 ">
-                {ruletas.map((ruleta, index) => (
+                {ruletas?.map((ruleta, index) => (
                     <Ruleta
                         key={index}
-                        id={`${index}`}
+                        id={index.toString()}
                         arrayOpciones={ruleta.arrayOpciones}
                         arrayColores={ruleta.arrayColores}
                         nroGanador={ruleta.nroGanador}
                         nombreGanador={ruleta.nombreGanador}
+                        anchoAlto={tamañoRuleta}
                     ></Ruleta>
                 ))}
             </div>
 
-            <button id="boton" className="text-white font-bold text-2xl mb-10 border border-white w-[95%] h-20" onClick={handleClick}>
-                click
+            <button id="boton" className="text-white font-bold text-2xl mb-10 border border-white w-[95%] h-48" onClick={handleClick}>
+                Girar!
             </button>
             <span
                 id="mensaje"
                 onAnimationEnd={animacionEnd}
                 className="w-full h-full absolute grid place-content-center bg-black rounded-md font-bold text-7xl  backdrop-blur bg-opacity-50 transition-transform hidden z-50 "
-            >
-            </span>
+            ></span>
         </div>
     );
 }
