@@ -8,9 +8,10 @@ interface RuletaProps {
     nroGanador: number;
     nombreGanador: string;
     anchoAlto: number;
+    cantGanador: number;
 }
 
-export default function Ruleta({ id, arrayOpciones, arrayColores, nroGanador, nombreGanador, anchoAlto }: RuletaProps) {
+export default function Ruleta({ id, arrayOpciones, arrayColores, nroGanador, nombreGanador, anchoAlto, cantGanador }: RuletaProps) {
     const ruletaRef = useRef<HTMLCanvasElement>(null);
 
     const anguloInicialGanador = (360 / arrayOpciones.length) * nroGanador;
@@ -63,15 +64,45 @@ export default function Ruleta({ id, arrayOpciones, arrayColores, nroGanador, no
     }
 
     useEffect(() => {
-        creadorSorteo(id, anchoAlto / 2, anchoAlto / 2, (anchoAlto*0.48) , arrayOpciones, arrayColores);
+        creadorSorteo(id, anchoAlto / 2, anchoAlto / 2, anchoAlto * 0.48, arrayOpciones, arrayColores);
     }, [arrayOpciones]);
+
+    function handleAnimationEnd(id: string) {
+        const idNumber = parseInt(id);
+        const canvasSiguiente = document.getElementById("ruleta" + (idNumber + 1));
+        const contRuleta = document.getElementById("contenedor-ruleta-" + idNumber);
+        const contRuletaSiguiente = document.getElementById("contenedor-ruleta-" + (idNumber + 1));
+        const spanGanador = document.getElementById("ganador" + id);
+        spanGanador?.classList.remove("hidden");
+        canvasSiguiente?.classList.add("girar-ruleta");
+        canvasSiguiente?.classList.remove("ruleta");
+
+        //mobile
+        if (contRuleta?.classList.contains("mobile")) {
+            console.log("hola");
+            canvasSiguiente?.classList.add("mobile");
+            if (cantGanador !== 1) contRuleta?.classList.add("hidden");
+            contRuletaSiguiente?.classList.remove("hidden");
+            
+            
+        }
+    }
 
     return (
         <div
-            className="flex flex-col p-3 relative justify-center items-center after:absolute after:top-[7px] after:z-10 after:left-[calc(50%-32px)] after:border-t-white after:border-l-transparent after:border-r-transparent after:border-l-[32px] after:border-r-[32px] after:border-t-[46px] after:content-[''] before:absolute before:top-[6px] before:z-10 before:left-[calc(50%-35px)] before:border-t-gray-500 before:border-l-transparent before:border-r-transparent before:border-l-[35px] before:border-r-[35px] before:border-t-[50px] before:content-['']"
-            id="contenedor-ruleta"
+            className="flex flex-col p-3 relative  justify-center items-center  after:absolute after:top-[7px] after:z-10 after:left-[calc(50%-32px)] after:border-t-white after:border-l-transparent after:border-r-transparent after:border-l-[32px] after:border-r-[32px] after:border-t-[46px] after:content-[''] before:absolute before:top-[6px] before:z-10 before:left-[calc(50%-35px)] before:border-t-gray-500 before:border-l-transparent before:border-r-transparent before:border-l-[35px] before:border-r-[35px] before:border-t-[50px] before:content-['']"
+            id={"contenedor-ruleta-" + id}
         >
-            <canvas width={anchoAlto} height={anchoAlto} id={"ruleta" + id} ref={ruletaRef} className="rounded-full bg-gray-300 "></canvas>
+            <canvas
+                width={anchoAlto}
+                height={anchoAlto}
+                id={"ruleta" + id}
+                ref={ruletaRef}
+                className="rounded-full  bg-gray-300 "
+                onAnimationEnd={() => {
+                    handleAnimationEnd(id);
+                }}
+            ></canvas>
             <span id={"ganador" + id} className="text-center text-black text-5xl font-bold absolute hidden">
                 {nombreGanador}
             </span>

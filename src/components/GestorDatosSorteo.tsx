@@ -8,6 +8,7 @@ interface GestorDatosSorteoProps {
 
 export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOpciones, obtenerArrayColores }: GestorDatosSorteoProps) {
     const [texto, setTexto] = useState("");
+    const [ganad, setGanador] = useState(1);
     const [arrayOpciones, setArrayOpciones] = useState<string[]>([]);
     const [arrayColores, setArrayColores] = useState<string[]>([]);
     const listaOpciones = document.querySelector("ul");
@@ -38,10 +39,11 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
             if (arrayOpciones.includes(texto) || texto === "" || texto === " ") {
                 const mensaje = document.getElementById("mensaje");
                 if (mensaje) {
+                    mensaje.classList.add("hd:grid")
                     if (texto === "" || texto === " ") mensaje.innerHTML = "Ingresa un valor!";
 
                     if (arrayOpciones.includes(texto)) mensaje.innerHTML = "El valor ingresado ya existe!";
-                    mensaje.classList.remove("hidden");
+                    mensaje.classList.remove("hd:hidden");
                     mensaje.classList.add("fade");
                 }
 
@@ -67,12 +69,33 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
         }
         if (inputOpcionRef.current) inputOpcionRef.current.focus();
     };
+    
+    const handleClickMobile = () =>{
+        const ruletas = document.getElementById("genRuletas");
+        ruletas?.classList.remove("hidden");
+        ruletas?.classList.add("grid");
+        const gestorDatos = document.getElementById("gestorDatos");
+        gestorDatos?.classList.add("hidden");
+        
+        const canvas = document.getElementById("ruleta0");
+        canvas?.classList.add("girar-ruleta");
+        canvas?.classList.remove("ruleta");
+        const contRuleta = document.getElementById("contenedor-ruleta-0");
+        
+        contRuleta?.classList.add("mobile")
+        for(let i=1; i<ganad; i++){
+            const constRuleta = document.getElementById("contenedor-ruleta-"+i);
+            constRuleta?.classList.add("hidden")
+        }
+
+    }
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const valorSelect = parseInt(e.currentTarget.value);
         const cantOpciones = arrayOpciones.length;
         if (valorSelect < cantOpciones) {
             obtenerCantGanadores(parseInt(e.target.value));
+            setGanador(parseInt(e.target.value));
             return;
         }
 
@@ -80,6 +103,7 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
         if (mensaje) mensaje.innerHTML = "Por favor, ingrese más opciones.";
         const select = document.getElementById("selectGanadores") as HTMLSelectElement | null;
         if (select) select.value = "1";
+        setGanador(1);
         obtenerCantGanadores(1);
         mensaje?.classList.remove("hidden");
         mensaje?.classList.add("fade");
@@ -219,7 +243,7 @@ export default function GestorDatosSorteo({ obtenerCantGanadores, obtenerArrayOp
             <button
                 id="boton"
                 className="text-white font-bold min-h-[5%] text-2xl mb-10 border  border-white w-[95%] h-48 hd:hidden"
-                onClick={handleClick}
+                onClick={handleClickMobile}
             >
                 Girar!
             </button>

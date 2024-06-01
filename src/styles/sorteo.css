@@ -66,6 +66,7 @@
 .barra-scroll::-webkit-scrollbar-thumb{
     background: #212020;
     border-radius: 10px;
+    
 }
 
 p{

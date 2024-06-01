@@ -45,7 +45,7 @@ export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayCol
                 cantidadTamaño = 5;
         }
         if(window.innerWidth <= 500){
-            nuevoTamañoRuleta = window.innerWidth - (window.innerWidth*0.3 * cantGanadores)
+            nuevoTamañoRuleta = Math.abs(window.innerWidth / 1.1)
         }else if(window.innerWidth <= 1500){
             nuevoTamañoRuleta = Math.abs(window.innerWidth  /cantidadTamaño*0.9)
         }else if(window.innerWidth <= 3000){
@@ -68,7 +68,8 @@ export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayCol
         const mensaje = document.getElementById("mensaje");
         if (mensaje) {
             mensaje.classList.remove("fade");
-            mensaje.classList.add("hidden");
+            
+            mensaje.classList.add("hd:hidden");
         }
     };
 
@@ -76,25 +77,16 @@ export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayCol
     const handleClick = () => {
         const gestorDatos = document.getElementById("gestorDatos");
         gestorDatos?.classList.add("pointer-events-none");
-        for (let i = 0; i < cantGanadores; i++) {
-            const canvas = document.getElementById("ruleta" + i);
-            const tiempoDelay: number = i * 5000;
-            const tiempoGanador: number = (i + 1) * 5000;
-            const spanGanador = document.getElementById("ganador" + i);
+        const canvas = document.getElementById("ruleta0");
+        canvas?.classList.add("girar-ruleta");
+        canvas?.classList.remove("ruleta");
 
-            setTimeout(() => {
-                canvas?.classList.add("girar-ruleta");
-                canvas?.classList.remove("ruleta");
-            }, tiempoDelay);
-            setTimeout(() => {
-                spanGanador?.classList.remove("hidden");
-            }, tiempoGanador);
-        }
+        
     };
 
     return (
-        <div className="h-full w-full hd:w-[67%]  hd:flex flex-col justify-center relative items-center  gap-5 hidden ">
-            <div className="h-full  w-full flex  flex-wrap justify-center items-center  gap-5 ">
+        <div className="h-full w-full hd:w-[67%] hd:flex flex-col justify-center relative items-center  overflow-hidden gap-5 hidden  " id="genRuletas">
+            <div className="h-full  w-full flex justify-center  flex-row hd:flex-wrap hd:justify-center items-center  gap-5 " id="contRuletas">
                 {ruletas?.map((ruleta, index) => (
                     <Ruleta
                         key={index}
@@ -104,17 +96,18 @@ export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayCol
                         nroGanador={ruleta.nroGanador}
                         nombreGanador={ruleta.nombreGanador}
                         anchoAlto={tamañoRuleta}
+                        cantGanador={cantGanadores}
                     ></Ruleta>
                 ))}
             </div>
 
-            <button id="boton" className="text-white font-bold text-2xl mb-10 border border-white w-[95%] h-48" onClick={handleClick}>
+            <button id="boton" className="text-white font-bold text-2xl mb-10 border border-white w-[95%] h-48 hidden hd:block" onClick={handleClick}>
                 Girar!
             </button>
             <span
                 id="mensaje"
                 onAnimationEnd={animacionEnd}
-                className="w-full h-full absolute grid place-content-center bg-black rounded-md font-bold text-7xl  backdrop-blur bg-opacity-50 transition-transform hidden z-50 "
+                className="w-full h-full absolute  hd:hidden place-content-center  bg-black rounded-md font-bold text-7xl  backdrop-blur bg-opacity-50 transition-transform hidden z-50 "
             ></span>
         </div>
     );
