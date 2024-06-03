@@ -1,0 +1,74 @@
+.girar-ruleta {
+    animation: girarRuleta 5s cubic-bezier(.15,.25,0,1);
+    animation-fill-mode: forwards;
+}
+@keyframes girarRuleta {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(var(--giro));
+    }
+}   
+
+
+.ruleta {
+    filter: grayscale(95%)
+}
+
+.fade{
+    animation: fade 2s ease-in-out  0s normal 1 both ;
+}
+
+@keyframes fade {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 100;
+    }
+    100%{
+        opacity: 0;
+    }
+    
+}
+
+.h1{
+    background: repeating-linear-gradient(-45deg, red 7%, orange 14%, yellow 21%, green 28%, blue 35%, violet 42%, red 50%);
+    background-size: 600vw 600vw;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow 5s linear infinite alternate;
+}
+.divRainbow{
+    background: repeating-linear-gradient(-45deg, red 7%, orange 14%, yellow 21%, green 28%, blue 35%, violet 42%, red 50%);
+    background-size: 600vw 600vw;
+    background-clip: border-box;
+    color: transparent;
+    animation: rainbow 5s linear infinite alternate;
+}
+
+
+@keyframes rainbow {
+    0% {
+        background-position-x: 250vw;
+    }
+    100% {
+        background-position-x: 600vw;
+    }
+}
+
+.barra-scroll::-webkit-scrollbar{
+    width: 15px;
+    background-color: rgb(15, 10, 10);
+    border-radius: 10px;
+}
+.barra-scroll::-webkit-scrollbar-thumb{
+    background: #212020;
+    border-radius: 10px;
+    
+}
+
+p{
+    height: 70%;
+}
