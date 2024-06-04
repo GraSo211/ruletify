@@ -69,6 +69,7 @@ export default function Ruleta({ id, arrayOpciones, arrayColores, nroGanador, no
 
     function handleAnimationEnd(id: string) {
         const idNumber = parseInt(id);
+        console.log("el numero de id eS: "+id)
         const canvasSiguiente = document.getElementById("ruleta" + (idNumber + 1));
         const contRuleta = document.getElementById("contenedor-ruleta-" + idNumber);
         const contRuletaSiguiente = document.getElementById("contenedor-ruleta-" + (idNumber + 1));
@@ -77,12 +78,18 @@ export default function Ruleta({ id, arrayOpciones, arrayColores, nroGanador, no
         canvasSiguiente?.classList.add("girar-ruleta");
         canvasSiguiente?.classList.remove("ruleta");
 
+
         //mobile
         if (contRuleta?.classList.contains("mobile")) {
-            console.log("hola");
-            canvasSiguiente?.classList.add("mobile");
-            if (cantGanador !== 1) contRuleta?.classList.add("hidden");
-            contRuletaSiguiente?.classList.remove("hidden");
+            setTimeout(()=>{
+                canvasSiguiente?.classList.add("mobile");
+                if (cantGanador !== 1 && cantGanador !== idNumber+1){
+                    console.log(cantGanador, idNumber)
+                    contRuleta?.classList.add("hidden");
+                    contRuletaSiguiente?.classList.remove("hidden");
+                }
+            },800)
+ 
             
             
         }
@@ -90,7 +97,7 @@ export default function Ruleta({ id, arrayOpciones, arrayColores, nroGanador, no
 
     return (
         <div
-            className="flex flex-col p-3 relative  justify-center items-center  after:absolute after:top-[7px] after:z-10 after:left-[calc(50%-32px)] after:border-t-white after:border-l-transparent after:border-r-transparent after:border-l-[32px] after:border-r-[32px] after:border-t-[46px] after:content-[''] before:absolute before:top-[6px] before:z-10 before:left-[calc(50%-35px)] before:border-t-gray-500 before:border-l-transparent before:border-r-transparent before:border-l-[35px] before:border-r-[35px] before:border-t-[50px] before:content-['']"
+            className="flex flex-col p-3 relative justify-center items-center  after:absolute after:top-[7px] after:z-10 after:left-[calc(50%-32px)] after:border-t-white after:border-l-transparent after:border-r-transparent after:border-l-[32px] after:border-r-[32px] after:border-t-[46px] after:content-[''] before:absolute before:top-[6px] before:z-10 before:left-[calc(50%-35px)] before:border-t-gray-500 before:border-l-transparent before:border-r-transparent before:border-l-[35px] before:border-r-[35px] before:border-t-[50px] before:content-['']"
             id={"contenedor-ruleta-" + id}
         >
             <canvas

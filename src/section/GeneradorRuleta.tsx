@@ -69,12 +69,22 @@ export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayCol
         if (mensaje) {
             mensaje.classList.remove("fade");
             
-            mensaje.classList.add("hd:hidden");
+            mensaje.classList.add("hidden");
         }
     };
 
 
     const handleClick = () => {
+        console.log(arrayOpciones)
+        if(arrayOpciones.length < 2){
+            const mensaje = document.getElementById("mensaje");
+            if(mensaje){ mensaje.innerHTML = "Ingresa al menos 2 opciones.";
+            mensaje.classList.add("grid");
+            mensaje.classList.remove("hidden");
+            mensaje.classList.add("fade");
+        }
+            return
+        }
         const gestorDatos = document.getElementById("gestorDatos");
         gestorDatos?.classList.add("pointer-events-none");
         const canvas = document.getElementById("ruleta0");
@@ -107,7 +117,7 @@ export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayCol
             <span
                 id="mensaje"
                 onAnimationEnd={animacionEnd}
-                className="w-full h-full absolute  hd:hidden place-content-center  bg-black rounded-md font-bold text-7xl  backdrop-blur bg-opacity-50 transition-transform hidden z-50 "
+                className="w-full h-full absolute  hidden place-content-center  bg-black rounded-md font-bold text-7xl  backdrop-blur bg-opacity-50 transition-transform  z-50 "
             ></span>
         </div>
     );

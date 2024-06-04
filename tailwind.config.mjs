@@ -5,7 +5,7 @@ export default {
         extend: {
             screens: {
                 tablet:"700px",
-                hd: "1200px",
+                hd: "1000px",
                 "full-hd": "1900px",
                 "2k": "2500px",
             },
