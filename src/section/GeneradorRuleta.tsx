@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Ruleta from "../components/Ruleta";
+import CartelProblema from "../components/CartelProblema";
+import SorteoContext from "../context/SorteoContext";
+import BotonComenzar from "../components/BotonComenzar";
 
-interface GeneradorRuletaProps {
-    cantGanadores: number;
-    arrayOpciones: string[];
-    arrayColores: string[];
-}
+
 interface RuletaObject {
     arrayOpciones: string[];
     arrayColores: string[];
@@ -13,7 +12,8 @@ interface RuletaObject {
     nombreGanador: string;
 }
 
-export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayColores }: GeneradorRuletaProps) {
+export default function GeneradorRuleta() {
+    const {cantGanadores, arrayColores, arrayOpciones, mobilePc} = useContext(SorteoContext)
     const [tamañoRuleta, setTamañoRuleta] = useState<number>(0);
     const [ruletas, setRuletas] = useState<RuletaObject[]>([]);
 
@@ -64,35 +64,9 @@ export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayCol
         setRuletas(nuevasRuletas);
     }, [cantGanadores, arrayOpciones, arrayColores]);
 
-    const animacionEnd = () => {
-        const mensaje = document.getElementById("mensaje");
-        if (mensaje) {
-            mensaje.classList.remove("fade");
-            
-            mensaje.classList.add("hidden");
-        }
-    };
 
 
-    const handleClick = () => {
-        console.log(arrayOpciones)
-        if(arrayOpciones.length < 2){
-            const mensaje = document.getElementById("mensaje");
-            if(mensaje){ mensaje.innerHTML = "Ingresa al menos 2 opciones.";
-            mensaje.classList.add("grid");
-            mensaje.classList.remove("hidden");
-            mensaje.classList.add("fade");
-        }
-            return
-        }
-        const gestorDatos = document.getElementById("gestorDatos");
-        gestorDatos?.classList.add("pointer-events-none");
-        const canvas = document.getElementById("ruleta0");
-        canvas?.classList.add("girar-ruleta");
-        canvas?.classList.remove("ruleta");
-
-        
-    };
+    
 
     return (
         <div className="h-full w-full hd:w-[67%] hd:flex flex-col justify-center relative items-center  overflow-hidden gap-5 hidden  " id="genRuletas">
@@ -110,15 +84,7 @@ export default function GeneradorRuleta({ cantGanadores, arrayOpciones, arrayCol
                     ></Ruleta>
                 ))}
             </div>
-
-            <button id="boton" className="text-white font-bold text-2xl mb-10 border border-white w-[95%] h-48 hidden hd:block" onClick={handleClick}>
-                Girar!
-            </button>
-            <span
-                id="mensaje"
-                onAnimationEnd={animacionEnd}
-                className="w-full h-full absolute  hidden place-content-center  bg-black rounded-md font-bold text-7xl  backdrop-blur bg-opacity-50 transition-transform  z-50 "
-            ></span>
+            {mobilePc?<BotonComenzar></BotonComenzar>:""}
         </div>
     );
 }

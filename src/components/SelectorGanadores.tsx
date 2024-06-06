@@ -1,0 +1,40 @@
+import { useContext, type ChangeEvent } from "react";
+import SorteoContext from "../context/SorteoContext";
+export default function SelectorGanadores() {
+    const { setCantGanadores, arrayOpciones,} = useContext(SorteoContext);
+  
+    const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+        const valorSelect = parseInt(e.currentTarget.value);
+        const cantOpciones = arrayOpciones.length;
+        if (valorSelect < cantOpciones) {
+          setCantGanadores(parseInt(e.target.value));
+          return;
+        }
+        const select = document.getElementById(
+          "selectGanadores"
+        ) as HTMLSelectElement | null;
+        if (select) select.value = "1";
+        setCantGanadores(1);
+      };
+    
+  return (
+    <>
+      <div className=" w-full  h-auto p-3 flex flex-col gap-3 justify-center   ">
+        <h2 className="font-bold text-left text-lg tablet:text-3xl hd:text-xl full-hd:text-3xl 2k:text-4xl  text-pretty">
+          <b>SELECCIONA LA CANTIDAD DE GANADORES:</b>
+        </h2>
+        <select
+          id="selectGanadores"
+          onChange={handleChange}
+          className="text-black font-bold w-full hd:text-sm full-hd:text-2xl 2k:text-3xl appearance-none p-3 hover:animate-pulse "
+        >
+          <option value={1}>1 GANADOR</option>
+          <option value={2}>2 GANADORES</option>
+          <option value={3}>3 GANADORES</option>
+          <option value={4}>4 GANADORES</option>
+          <option value={5}>5 GANADORES</option>
+        </select>
+      </div>
+    </>
+  );
+}

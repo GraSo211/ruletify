@@ -69,29 +69,29 @@ export default function Ruleta({ id, arrayOpciones, arrayColores, nroGanador, no
 
     function handleAnimationEnd(id: string) {
         const idNumber = parseInt(id);
-        console.log("el numero de id eS: "+id)
         const canvasSiguiente = document.getElementById("ruleta" + (idNumber + 1));
+
         const contRuleta = document.getElementById("contenedor-ruleta-" + idNumber);
+
         const contRuletaSiguiente = document.getElementById("contenedor-ruleta-" + (idNumber + 1));
+
         const spanGanador = document.getElementById("ganador" + id);
+
         spanGanador?.classList.remove("hidden");
+
         canvasSiguiente?.classList.add("girar-ruleta");
+        
         canvasSiguiente?.classList.remove("ruleta");
 
 
         //mobile
-        if (contRuleta?.classList.contains("mobile")) {
+        if (window.innerWidth < 1000) {
             setTimeout(()=>{
-                canvasSiguiente?.classList.add("mobile");
                 if (cantGanador !== 1 && cantGanador !== idNumber+1){
-                    console.log(cantGanador, idNumber)
                     contRuleta?.classList.add("hidden");
                     contRuletaSiguiente?.classList.remove("hidden");
                 }
             },800)
- 
-            
-            
         }
     }
 
@@ -110,7 +110,7 @@ export default function Ruleta({ id, arrayOpciones, arrayColores, nroGanador, no
                     handleAnimationEnd(id);
                 }}
             ></canvas>
-            <span id={"ganador" + id} className="text-center text-black text-5xl font-bold absolute hidden">
+            <span id={"ganador" + id} className="text-center text-white text-5xl font-bold absolute hidden">
                 {nombreGanador}
             </span>
         </div>
