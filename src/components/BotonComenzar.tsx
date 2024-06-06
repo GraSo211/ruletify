@@ -66,7 +66,7 @@ export default function BotonComenzar() {
   return (
     <button
       id="boton"
-      className="text-white font-bold bg-slate-900 hover:bg-slate-950  clip  relative text-xl hover:text-2xl hd:text-2xl hd:hover:text-4xl full-hd:text-3xl full-hd:hover:text-5xl mb-10  w-[95%] h-48 "
+      className="text-white font-bold bg-[#0b0c0e] hover:bg-[#000000]  clip  relative text-xl hover:text-2xl hd:text-2xl hd:hover:text-4xl full-hd:text-3xl full-hd:hover:text-5xl mb-10  w-[95%] h-48 "
       onClick={handleClick}
     >
       <canvas
