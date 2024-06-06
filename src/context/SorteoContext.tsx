@@ -40,7 +40,7 @@ export const SorteoProvider = ({ children }: { children: ReactNode }) => {
         <SorteoContext.Provider value={{ cantGanadores, setCantGanadores, arrayOpciones, setArrayOpciones, arrayColores, setArrayColores, mensajeG, setMensajeG, mobilePc }}>
             {children}
         </SorteoContext.Provider>
-    );
+    );  
 };
 
 export default SorteoContext;

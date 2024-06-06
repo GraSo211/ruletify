@@ -10,15 +10,7 @@ import BotonComenzar from "../components/BotonComenzar";
 
 
 export default function GestorDatosSorteo() {
-  const {cantGanadores, arrayOpciones, mobilePc } = useContext(SorteoContext)
-
-  
-
-
-
-
-
-  
+  const {mobilePc } = useContext(SorteoContext)
 
 
   return (

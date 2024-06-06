@@ -1,22 +1,25 @@
 import { useContext, type ChangeEvent } from "react";
 import SorteoContext from "../context/SorteoContext";
 export default function SelectorGanadores() {
-    const { setCantGanadores, arrayOpciones,} = useContext(SorteoContext);
-  
-    const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-        const valorSelect = parseInt(e.currentTarget.value);
-        const cantOpciones = arrayOpciones.length;
-        if (valorSelect < cantOpciones) {
-          setCantGanadores(parseInt(e.target.value));
-          return;
-        }
-        const select = document.getElementById(
-          "selectGanadores"
-        ) as HTMLSelectElement | null;
-        if (select) select.value = "1";
-        setCantGanadores(1);
-      };
-    
+  const { setCantGanadores, arrayOpciones, setMensajeG } =
+    useContext(SorteoContext);
+
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const valorSelect = parseInt(e.currentTarget.value);
+    if (valorSelect < arrayOpciones.length) {
+      setCantGanadores(valorSelect);
+      return;
+    }
+    setMensajeG("Ingresa más opciones.");
+    document.getElementById("cartelProblema")?.classList.remove("hidden");
+    document.getElementById("cartelProblema")?.classList.add("fade");
+    const select = document.getElementById(
+      "selectGanadores"
+    ) as HTMLSelectElement | null;
+    if (select) select.value = "1";
+    setCantGanadores(1);
+  };
+
   return (
     <>
       <div className=" w-full  h-auto p-3 flex flex-col gap-3 justify-center   ">

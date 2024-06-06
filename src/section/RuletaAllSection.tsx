@@ -16,7 +16,7 @@ export default function RuletaAllSection() {
         if(window.innerWidth < 1000){
             setMobilePc(false);
         }
-    })
+    },[])
 
     
 

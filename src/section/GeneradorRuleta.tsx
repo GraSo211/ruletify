@@ -31,7 +31,6 @@ export default function GeneradorRuleta() {
             nuevasRuletas.push({ arrayOpciones: opcionesRestantes, arrayColores: coloresRestantes, nroGanador: nroGanador, nombreGanador: nombreGanador });
             opcionesRestantes = opcionesRestantes.filter((elem) => elem !== nombreGanador);
             coloresRestantes = coloresRestantes.filter((elem) => elem !== colorDelGanador);
-
         }
 
         switch (cantGanadores) {
@@ -53,11 +52,6 @@ export default function GeneradorRuleta() {
         }else{
             nuevoTamañoRuleta = window.innerWidth *5
         }
-        
-
-
-
-
 
 
         setTamañoRuleta(nuevoTamañoRuleta);
@@ -65,8 +59,6 @@ export default function GeneradorRuleta() {
     }, [cantGanadores, arrayOpciones, arrayColores]);
 
 
-
-    
 
     return (
         <div className="h-full w-full hd:w-[67%] hd:flex flex-col justify-center relative items-center  overflow-hidden gap-5 hidden  " id="genRuletas">

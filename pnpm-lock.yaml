@@ -13,10 +13,10 @@ importers:
         version: 0.6.0(typescript@5.4.5)
       '@astrojs/react':
         specifier: ^3.3.4
-        version: 3.3.4(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)(vite@5.2.11)
+        version: 3.3.4(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.2.11)
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.8.2)(tailwindcss@3.4.3)
+        version: 5.1.0(astro@4.8.2(typescript@5.4.5))(tailwindcss@3.4.3)
       '@types/react':
         specifier: ^18.3.2
         version: 18.3.2
@@ -26,6 +26,9 @@ importers:
       astro:
         specifier: ^4.8.2
         version: 4.8.2(typescript@5.4.5)
+      confetti-js:
+        specifier: ^0.0.18
+        version: 0.0.18
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1014,6 +1017,9 @@ packages:
 
   common-ancestor-path@1.0.1:
     resolution: {integrity: sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==}
+
+  confetti-js@0.0.18:
+    resolution: {integrity: sha512-0B7pYmZGBZuBkN32ydjWRpJLfRUT9KZYkQKkC4SGrAsUq0XE2DLY5foCWBXMXXVg7sFKs3qIb+qsDx1eFTeSvA==}
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
@@ -2386,7 +2392,7 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/react@3.3.4(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)(vite@5.2.11)':
+  '@astrojs/react@3.3.4(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.2.11)':
     dependencies:
       '@types/react': 18.3.2
       '@types/react-dom': 18.3.0
@@ -2398,7 +2404,7 @@ snapshots:
       - supports-color
       - vite
 
-  '@astrojs/tailwind@5.1.0(astro@4.8.2)(tailwindcss@3.4.3)':
+  '@astrojs/tailwind@5.1.0(astro@4.8.2(typescript@5.4.5))(tailwindcss@3.4.3)':
     dependencies:
       astro: 4.8.2(typescript@5.4.5)
       autoprefixer: 10.4.19(postcss@8.4.38)
@@ -3281,6 +3287,8 @@ snapshots:
   commander@4.1.1: {}
 
   common-ancestor-path@1.0.1: {}
+
+  confetti-js@0.0.18: {}
 
   convert-source-map@2.0.0: {}
 
@@ -4204,8 +4212,9 @@ snapshots:
   postcss-load-config@4.0.2(postcss@8.4.38):
     dependencies:
       lilconfig: 3.1.1
-      postcss: 8.4.38
       yaml: 2.4.2
+    optionalDependencies:
+      postcss: 8.4.38
 
   postcss-nested@6.0.1(postcss@8.4.38):
     dependencies:
@@ -4568,7 +4577,7 @@ snapshots:
   ts-interface-checker@0.1.13: {}
 
   tsconfck@3.0.3(typescript@5.4.5):
-    dependencies:
+    optionalDependencies:
       typescript: 5.4.5
 
   tslib@2.6.2:
@@ -4714,46 +4723,51 @@ snapshots:
       fsevents: 2.3.3
 
   vitefu@0.2.5(vite@5.2.11):
-    dependencies:
+    optionalDependencies:
       vite: 5.2.11
 
   volar-service-css@0.0.43(@volar/language-service@2.2.2):
     dependencies:
-      '@volar/language-service': 2.2.2
       vscode-css-languageservice: 6.2.14
       vscode-languageserver-textdocument: 1.0.11
       vscode-uri: 3.0.8
+    optionalDependencies:
+      '@volar/language-service': 2.2.2
 
   volar-service-emmet@0.0.43(@volar/language-service@2.2.2):
     dependencies:
-      '@volar/language-service': 2.2.2
       '@vscode/emmet-helper': 2.9.3
       vscode-html-languageservice: '@johnsoncodehk/vscode-html-languageservice@5.2.0-34a5462'
+    optionalDependencies:
+      '@volar/language-service': 2.2.2
 
   volar-service-html@0.0.43(@volar/language-service@2.2.2):
     dependencies:
-      '@volar/language-service': 2.2.2
       vscode-html-languageservice: '@johnsoncodehk/vscode-html-languageservice@5.2.0-34a5462'
       vscode-languageserver-textdocument: 1.0.11
       vscode-uri: 3.0.8
+    optionalDependencies:
+      '@volar/language-service': 2.2.2
 
   volar-service-prettier@0.0.43(@volar/language-service@2.2.2):
     dependencies:
-      '@volar/language-service': 2.2.2
       vscode-uri: 3.0.8
+    optionalDependencies:
+      '@volar/language-service': 2.2.2
 
   volar-service-typescript-twoslash-queries@0.0.43(@volar/language-service@2.2.2):
-    dependencies:
+    optionalDependencies:
       '@volar/language-service': 2.2.2
 
   volar-service-typescript@0.0.43(@volar/language-service@2.2.2):
     dependencies:
-      '@volar/language-service': 2.2.2
       path-browserify: 1.0.1
       semver: 7.6.2
       typescript-auto-import-cache: 0.3.2
       vscode-languageserver-textdocument: 1.0.11
       vscode-nls: 5.2.0
+    optionalDependencies:
+      '@volar/language-service': 2.2.2
 
   vscode-css-languageservice@6.2.14:
     dependencies:
