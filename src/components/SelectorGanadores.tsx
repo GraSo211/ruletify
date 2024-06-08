@@ -12,7 +12,7 @@ export default function SelectorGanadores() {
     }
     setMensajeG("Ingresa más opciones.");
     document.getElementById("cartelProblema")?.classList.remove("hidden");
-    document.getElementById("cartelProblema")?.classList.add("fade");
+    document.getElementById("cartelProblema")?.classList.add("fadeM");
     const select = document.getElementById(
       "selectGanadores"
     ) as HTMLSelectElement | null;

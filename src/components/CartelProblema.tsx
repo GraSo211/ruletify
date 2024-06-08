@@ -6,7 +6,7 @@ export default function CartelProblema() {
     const handleAnimacionEnd = () => {
     const mensaje = document.getElementById("cartelProblema");
     if (mensaje) {
-      mensaje.classList.remove("fade");
+      mensaje.classList.remove("fadeM");
       mensaje.classList.add("hidden");
     }
   };

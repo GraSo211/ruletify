@@ -19,6 +19,7 @@ interface SorteoContextType {
     mobilePc:boolean
     sortear: boolean;
     setSortear: Dispatch<SetStateAction<boolean>>;
+
 }
 
 
@@ -38,6 +39,7 @@ const defaultValues: SorteoContextType = {
     mobilePc:true,
     sortear: false,
     setSortear: () => {},
+
 };
 
 const SorteoContext = createContext<SorteoContextType>(defaultValues);
@@ -51,8 +53,9 @@ export const SorteoProvider = ({ children }: { children: ReactNode }) => {
     const [mensajeG, setMensajeG] = useState<string>("");
     const [sortear, setSortear] = useState<boolean>(false);
     const mobilePc = true;
+
     return (
-        <SorteoContext.Provider value={{ cantGanadores, setCantGanadores, arrayOpciones, setArrayOpciones, arrayGanadores, setArrayGanadores, arrayColores, setArrayColores, mensajeG, setMensajeG, mobilePc, sortear, setSortear, arrayColoresGanadores, setArrayColoresGanadores }}>
+        <SorteoContext.Provider value={{ cantGanadores, setCantGanadores, arrayOpciones, setArrayOpciones, arrayGanadores, setArrayGanadores, arrayColores, setArrayColores, mensajeG, setMensajeG, mobilePc, sortear, setSortear, arrayColoresGanadores, setArrayColoresGanadores, }}>
             {children}
         </SorteoContext.Provider>
     );  

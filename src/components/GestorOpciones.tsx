@@ -66,7 +66,7 @@ export default function GestorOpciones() {
       if (arrayOpciones.includes(texto))
         setMensajeG("El valor ingresado ya existe!");
       document.getElementById("cartelProblema")?.classList.remove("hidden");
-      document.getElementById("cartelProblema")?.classList.add("fade");
+      document.getElementById("cartelProblema")?.classList.add("fadeM");
 
       return;
     }

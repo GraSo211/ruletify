@@ -11,13 +11,36 @@
 
 .div1 {
     clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
-    animation: desplazarArriba 2s 0.5s forwards;
+
 }
 
 .div2 {
     clip-path: polygon(100% 100%, 0% 100%, 99% 0%);
-    animation: desplazarAbajo 2s 0.5s forwards;
+   
 }
+
+.animateUp {
+    animation: desplazarArriba 1s 0.5s forwards;
+}
+
+.animateDown {
+    animation: desplazarAbajo 1s 0.5s forwards;
+}
+
+.animateUpReversa {
+    animation: desplazarArriba 0.5s  reverse forwards ;
+}
+
+.animateDownReversa {
+    animation: desplazarAbajo 0.5s  reverse  forwards;
+}
+
+
+
+
+
+
+
 h1 {
     background: repeating-linear-gradient(-45deg, red 7%, orange 14%, yellow 21%, green 28%, blue 35%, violet 42%, red 50%);
     background-size: 600vw 600vw;
@@ -44,9 +67,11 @@ h1 {
 @keyframes desplazarArriba {
     from {
         transform: translate(0, 0);
+        opacity: 1;
+        display: grid;
     }
     to {
-        transform: translate(-100vw, -100vh);
+        transform: translate(-50vw, -50vh);
         opacity: 0;
         display: none;
     }
@@ -54,9 +79,11 @@ h1 {
 @keyframes desplazarAbajo {
     from {
         transform: translate(0, 0);
+        opacity: 1;
+        display: grid;
     }
     to {
-        transform: translate(100vw, 100vh);
+        transform: translate(50vw, 50vh);
         opacity: 0;
         display: none;
     }

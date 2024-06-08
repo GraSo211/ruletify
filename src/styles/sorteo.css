@@ -16,7 +16,7 @@
     filter: grayscale(95%)
 }
 
-.fade{
+.fadeM{
     animation: fade 2s ease-in-out  0s normal 1 both ;
 }
 

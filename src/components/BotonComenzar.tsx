@@ -38,9 +38,10 @@ export default function BotonComenzar() {
     if (arrayOpciones.length < 2) {
       setMensajeG("Ingresa al menos 2 opciones.");
       document.getElementById("cartelProblema")?.classList.remove("hidden");
-      document.getElementById("cartelProblema")?.classList.add("fade");
+      document.getElementById("cartelProblema")?.classList.add("fadeM");
       return;
     }
+    document.getElementById("gestorDatos")?.classList.add("pointer-events-none")
     document.getElementById("genRuletas")?.classList.add("pointer-events-none")
     const canvas = document.getElementById("ruleta0");
     canvas?.classList.add("girar-ruleta");

@@ -22,7 +22,7 @@ export default function Ruleta({
   cantGanador,
 }: RuletaProps) {
   const ruletaRef = useRef<HTMLCanvasElement>(null);
-  const { setSortear } = useContext(SorteoContext);
+  const { setSortear,  } = useContext(SorteoContext);
 
   const anguloInicialGanador = (360 / arrayOpciones.length) * nroGanador;
   const anguloFinalGanador = anguloInicialGanador + 360 / arrayOpciones.length;
@@ -35,15 +35,14 @@ export default function Ruleta({
   if (nroAleatorizarSigno === 0) {
     nroAleatorizarVuelta = -nroAleatorizarVuelta;
   }
-  const vueltas =
-    360 * 20 - 120 - anguloGanador - centrador + nroAleatorizarVuelta;
-
-  const vueltasProperty: string = vueltas + "deg";
   useEffect(() => {
+    const vueltas = 360 * 20 - 120 - anguloGanador - centrador + nroAleatorizarVuelta;
+    const vueltasProperty: string = vueltas + "deg";
     if (ruletaRef.current) {
       ruletaRef.current.style.setProperty("--giro", vueltasProperty);
     }
-  }, [vueltasProperty]);
+  }, [arrayOpciones]);
+  
 
   function creadorSorteo(
     id: string,
