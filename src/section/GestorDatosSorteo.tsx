@@ -15,7 +15,7 @@ export default function GestorDatosSorteo() {
 
   return (
     <div
-      className="bg-[#121317] w-full hd:w-[33%]  h-full p-5 flex  flex-col justify-start items-center gap-3   "
+      className="bg-[#121317]   w-full hd:w-[33%]  h-full p-5 flex  flex-col justify-start items-center gap-3   "
       id="gestorDatos"
     >
       <div className="divRainbow w-full h-[10%] p-1 flex ">
@@ -29,7 +29,7 @@ export default function GestorDatosSorteo() {
       <SelectorGanadores></SelectorGanadores>
   
       <GestorOpciones></GestorOpciones>
-
+    
       
       {!mobilePc?<BotonComenzar></BotonComenzar>:""}
     </div>

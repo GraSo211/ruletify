@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Ruleta from "../components/Ruleta";
-import CartelProblema from "../components/CartelProblema";
+
 import SorteoContext from "../context/SorteoContext";
 import BotonComenzar from "../components/BotonComenzar";
 
@@ -13,7 +13,7 @@ interface RuletaObject {
 }
 
 export default function GeneradorRuleta() {
-    const {cantGanadores, arrayColores, arrayOpciones, mobilePc} = useContext(SorteoContext)
+    const {cantGanadores, setArrayGanadores,  setArrayColoresGanadores, arrayColores, arrayOpciones, mobilePc} = useContext(SorteoContext)
     const [tamañoRuleta, setTamañoRuleta] = useState<number>(0);
     const [ruletas, setRuletas] = useState<RuletaObject[]>([]);
 
@@ -22,15 +22,26 @@ export default function GeneradorRuleta() {
         let nuevoTamañoRuleta: number;
         let opcionesRestantes = [...arrayOpciones];
         let coloresRestantes = [...arrayColores];
+        let ganadoresArrayIntermedio = []
+        let ganadoresColoresArrayIntermedio = []
         let cantidadTamaño = 1;
 
         for (let i = 0; i < cantGanadores; i++) {
             const nroGanador: number = Math.floor(Math.random() * opcionesRestantes.length);
             const colorDelGanador: string = coloresRestantes[nroGanador];
             const nombreGanador: string = opcionesRestantes[nroGanador];
+            
             nuevasRuletas.push({ arrayOpciones: opcionesRestantes, arrayColores: coloresRestantes, nroGanador: nroGanador, nombreGanador: nombreGanador });
             opcionesRestantes = opcionesRestantes.filter((elem) => elem !== nombreGanador);
             coloresRestantes = coloresRestantes.filter((elem) => elem !== colorDelGanador);
+            ganadoresArrayIntermedio.push(nombreGanador);
+            ganadoresColoresArrayIntermedio.push(colorDelGanador);
+        }
+
+
+        if(ganadoresArrayIntermedio.length !==0){
+            setArrayGanadores(ganadoresArrayIntermedio);
+            setArrayColoresGanadores(ganadoresColoresArrayIntermedio);
         }
 
         switch (cantGanadores) {

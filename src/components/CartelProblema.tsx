@@ -14,7 +14,7 @@ export default function CartelProblema() {
   return (
     <span
       onAnimationEnd={handleAnimacionEnd}
-      className="w-full h-full absolute  place-content-center hidden  bg-black rounded-md font-bold text-3xl text-center  backdrop-blur bg-opacity-50 transition-transform  z-50"
+      className="w-full h-full absolute  place-content-center hidden  bg-black  font-bold text-3xl text-center  backdrop-blur bg-opacity-50 transition-transform  z-50"
       id="cartelProblema"
     >
       {mensajeG}
