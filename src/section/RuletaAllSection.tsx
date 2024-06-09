@@ -48,7 +48,7 @@ export default function RuletaAllSection() {
         <SwitchTransition>
           <CSSTransition
             key={sortear ? "true" : "false"}
-            nodeRef={nodeRef}
+            
             addEndListener={(node, done) =>
               node.addEventListener("transitionend", done, false)
             }
