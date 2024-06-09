@@ -1,6 +1,6 @@
 ---
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -8,48 +8,84 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	
-	<body class="h-full overflow-hidden ">
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="title" content="Ruletify" />
+    <!-- HTML Meta Tags -->
+    <title>Ruletify</title>
+    <meta
+      name="description"
+      content="¡Bienvenido a Ruletify! La plataforma en línea que te permite realizar sorteos de manera fácil y rápida. Crea sorteos personalizados con un máximo de 5 ganadores. ¡Prueba Ruletify!"
+    />
+	<meta name="author" content="GraSo" />
+	<meta name="copyright" content="© GraSo " />
+	<meta name="keywords" content="sorteos, sorteo en línea, sorteos personalizados, ruleta de premios, plataforma de sorteos, concursos, premios, ganadores, sorteos en redes sociales, marketing digital, atraer audiencia, ruletify, ruleta">
+	<link rel="canonical" href="https://ruletify.vercel.app" />
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://ruletify.vercel.app" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ruletify" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta name="description" content="¡Bienvenido a Ruletify! La plataforma en línea que te permite realizar sorteos de manera fácil y rápida. Crea sorteos personalizados con un máximo de 5 ganadores. ¡Prueba Ruletify!">
+    <meta
+      property="og:description"
+      content="¡Bienvenido a Ruletify! La plataforma en línea que te permite realizar sorteos de manera fácil y rápida. Crea sorteos personalizados con un máximo de 5 ganadores. ¡Prueba Ruletify!"
+    />
+    <meta property="og:image" content="/web-image.png" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="ruletify.vercel.app" />
+    <meta property="twitter:url" content="https://ruletify.vercel.app" />
+    <meta name="twitter:title" content="Ruletify" />
+    <meta
+      name="twitter:description"
+      content="¡Bienvenido a Ruletify! La plataforma en línea que te permite realizar sorteos de manera fácil y rápida. Crea sorteos personalizados con un máximo de 5 ganadores. ¡Prueba Ruletify!"
+    />
+    <meta name="twitter:image" content="/web-image.png" />
+
+    <!-- Meta Tags Generated via https://www.opengraph.xyz -->
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+
+  <body class="h-full overflow-hidden">
+    <slot />
+  </body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-		color: white;
-		min-height: 100vh;
-		height: 100%;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+  :root {
+    --accent: 136, 58, 234;
+    --accent-light: 224, 204, 250;
+    --accent-dark: 49, 10, 101;
+    --accent-gradient: linear-gradient(
+      45deg,
+      rgb(var(--accent)),
+      rgb(var(--accent-light)) 30%,
+      white 60%
+    );
+  }
+  html {
+    font-family: system-ui, sans-serif;
+    background: #13151a;
+    background-size: 224px;
+    color: white;
+    min-height: 100vh;
+    height: 100%;
+  }
+  code {
+    font-family:
+      Menlo,
+      Monaco,
+      Lucida Console,
+      Liberation Mono,
+      DejaVu Sans Mono,
+      Bitstream Vera Sans Mono,
+      Courier New,
+      monospace;
+  }
 </style>
