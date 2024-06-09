@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import GestorDatosSorteo from "./GestorDatosSorteo";
 import GeneradorRuleta from "./GeneradorRuleta";
 import SorteoContext from "../context/SorteoContext";
@@ -17,12 +17,20 @@ export default function RuletaAllSection() {
   const [mensajeG, setMensajeG] = useState<string>("");
   const [mobilePc, setMobilePc] = useState<boolean>(true);
   const [sortear, setSortear] = useState<boolean>(false);
-  const nodeRef = useRef(null)
+
+  const nodeRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (window.innerWidth < 1000) {
       setMobilePc(false);
+    } else {
+      setMobilePc(true);
     }
-  }, []);   
+  }, [window.innerWidth]);
+
+  console.log("sortear",sortear)
+
+
 
   return (
     <div className="w-full h-full flex flex-row">
@@ -45,22 +53,33 @@ export default function RuletaAllSection() {
           setSortear,
         }}
       >
-        <SwitchTransition>
+        {mobilePc?
+          <SwitchTransition>
           <CSSTransition
             key={sortear ? "true" : "false"}
-            
-            addEndListener={(node, done) =>
-              node.addEventListener("transitionend", done, false)
-            }
+            nodeRef={nodeRef}
+            addEndListener={(done) => {
+              const node = nodeRef.current;
+              if (node) {
+                node.addEventListener("transitionend", done, false);
+              }
+            }}
             classNames="fade"
           >
             {sortear ? (
-              <GanadoresSection  ></GanadoresSection>
+              <GanadoresSection ref={nodeRef}></GanadoresSection>
             ) : (
-              <GestorDatosSorteo ></GestorDatosSorteo>
+              <GestorDatosSorteo ref={nodeRef}></GestorDatosSorteo>
             )}
           </CSSTransition>
         </SwitchTransition>
+        :
+        sortear ? (
+          <GanadoresSection ref={nodeRef}></GanadoresSection>
+        ) : (
+          <GestorDatosSorteo ref={nodeRef}></GestorDatosSorteo>
+        )
+        }
 
         <GeneradorRuleta></GeneradorRuleta>
       </SorteoContext.Provider>

@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, forwardRef } from "react";
 import SorteoContext from "../context/SorteoContext";
 import FilaGanador from "../components/FilaGanador";
 //@ts-ignore
 import ConfettiGenerator from "confetti-js";
 
-export default function GanadoresSection() {
+const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
   const {
     arrayColoresGanadores,
     arrayGanadores,
@@ -98,7 +98,10 @@ export default function GanadoresSection() {
   };
 
   return (
-    <div className="bg-[#121317] w-full hd:w-[33%]  h-full p-5 flex relative   flex-col justify-between items-center gap-3   ">
+    <div
+      ref={ref}
+      className="bg-[#121317] w-full hd:w-[33%] h-full p-5 flex relative flex-col justify-between items-center gap-3"
+    >
       <canvas
         id="canvas-ganador"
         className="w-full h-full top-0 absolute"
@@ -106,19 +109,19 @@ export default function GanadoresSection() {
         width={100}
       ></canvas>
       <div className="divRainbow w-full h-[10%] p-1 flex ">
-        <span className="w-full hd:h-full flex justify-center items-center p-3 bg-[#121317]   ">
-          <h1 className="h1 font-bold  text-5xl tablet:text-7xl hd:text-5xl full-hd:text-7xl 2k:text-8xl">
+        <span className="w-full hd:h-full flex justify-center items-center p-3 bg-[#121317]">
+          <h1 className="h1 font-bold text-5xl tablet:text-7xl hd:text-5xl full-hd:text-7xl 2k:text-8xl">
             RULETIFY
           </h1>
         </span>
       </div>
-      <div className=" rounded-lg w-full border border-white  h-auto p-3 flex flex-col gap-3 justify-center ">
-        <h2 className="font-bold text-center  text-lg tablet:text-3xl hd:text-xl full-hd:text-3xl 2k:text-5xl  text-pretty">
+      <div className="rounded-lg w-full border border-white h-auto p-3 flex flex-col gap-3 justify-center">
+        <h2 className="font-bold text-center text-lg tablet:text-3xl hd:text-xl full-hd:text-3xl 2k:text-5xl text-pretty">
           <b>GANADORES</b>
         </h2>
-        <table className=" bg-[#191919]  p-5  rounded-xl  text-center overflow-hidden border-4  ">
-          <thead className=" font-bold text-2xl hd:text-xl full-hd:text-3xl ">
-            <tr className=" h-14 hd:h-20 full-hd:h-24 bg-[#0000000a]">
+        <table className="bg-[#191919] p-5 rounded-xl text-center overflow-hidden border-4">
+          <thead className="font-bold text-2xl hd:text-xl full-hd:text-3xl">
+            <tr className="h-14 hd:h-20 full-hd:h-24 bg-[#0000000a]">
               <th>N°</th>
               <th>OPCIÓN</th>
             </tr>
@@ -138,10 +141,12 @@ export default function GanadoresSection() {
 
       <button
         onClick={handleReset}
-        className=" bg-[#0b0b0b] z-[1000] rounded-xl  font-bold  border border-white hover:bg-[#000000] p-1  hover:text-2xl hd:text-2xl hd:hover:text-4xl full-hd:text-3xl full-hd:hover:text-4xl mb-10  w-[95%] h-32 full-hd:h-40  2k:h-48 "
+        className="bg-[#0b0b0b] z-[1000] rounded-xl font-bold border border-white hover:bg-[#000000] p-1 hover:text-2xl hd:text-2xl hd:hover:text-4xl full-hd:text-3xl full-hd:hover:text-4xl mb-10 w-[95%] h-32 full-hd:h-40 2k:h-48"
       >
         <b className="animate-pulse">SORTEAR DE NUEVO</b>
       </button>
     </div>
   );
-}
+});
+
+export default GanadoresSection;

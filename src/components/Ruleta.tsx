@@ -121,7 +121,6 @@ export default function Ruleta({
       setTimeout(()=>{
         document.getElementById("genRuletas")?.classList.add("hidden")
         setSortear(true);
-        
       },800
       )
       
