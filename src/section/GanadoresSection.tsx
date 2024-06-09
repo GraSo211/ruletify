@@ -16,6 +16,7 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
     setArrayOpciones,
     setSortear,
     setMensajeG,
+    mobilePc
   } = useContext(SorteoContext);
 
   useEffect(() => {
@@ -60,6 +61,28 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
     void div2?.offsetWidth;
     div1?.classList.add("animateUpReversa");
     div2?.classList.add("animateDownReversa");
+    if(!mobilePc){
+      setArrayColores([]);
+      setArrayOpciones([]);
+      setArrayColoresGanadores([]);
+      setArrayGanadores([]);
+      setCantGanadores(1);
+      
+      const canvas = document.getElementById("ruleta0") as HTMLCanvasElement;
+      const ctx = canvas?.getContext("2d");
+      if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+      setMensajeG("");
+      document.getElementById("contenedor-ruleta-0")?.classList.remove("hidden");
+
+      for (let i = 0; i < cantGanadores; i++) {
+        const canvas = document.getElementById("ruleta" + i);
+        canvas?.classList.remove("girar-ruleta");
+        if (i !== 0) canvas?.classList.add("ruleta");
+  
+        const spanGanador = document.getElementById("ganador" + i);
+        spanGanador?.classList.add("hidden");
+      }
+    }
     
     setTimeout(() => {
       void div1?.offsetWidth;
@@ -70,6 +93,8 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
       void div2?.offsetWidth;
       div1?.classList.add("animateUp");
       div2?.classList.add("animateDown");
+
+
       setArrayColores([]);
       setArrayOpciones([]);
       setArrayColoresGanadores([]);
