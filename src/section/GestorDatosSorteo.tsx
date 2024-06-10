@@ -11,12 +11,12 @@ const GestorDatosSorteo = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
       ref={ref}
-      className="bg-[#121317] w-full hd:w-[33%] h-full p-5 flex flex-col justify-start items-center gap-3"
+      className="bg-[#121317] w-full lg:w-[33%]  p-5  flex flex-col justify-start items-center gap-3"
       id="gestorDatos"
     >
-      <div className="divRainbow w-full h-[10%] p-1 flex">
-        <span className="w-full hd:h-full flex justify-center items-center p-3 bg-[#121317]">
-          <h1 className="h1 font-bold text-5xl tablet:text-7xl hd:text-5xl full-hd:text-7xl 2k:text-8xl">
+      <div className="divRainbow w-full  p-1 flex">
+        <span className="w-full h-full flex justify-center items-center p-3 bg-[#121317]">
+          <h1 className="h1 font-bold text-4xl sm:text-5xl  2xl:text-6xl">
             RULETIFY
           </h1>
         </span>

@@ -72,8 +72,8 @@ export default function GeneradorRuleta() {
 
 
     return (
-        <div className="h-full w-full hd:w-[67%] hd:flex flex-col justify-center relative items-center  overflow-hidden gap-5 hidden  " id="genRuletas">
-            <div className="h-full  w-full flex justify-center  flex-row hd:flex-wrap hd:justify-center items-center  gap-5 " id="contRuletas">
+        <div className="h-full w-full  xl:w-[67%]  xl:flex flex-col  items-center  relative p-3    hidden  " id="genRuletas">
+            <div className="h-full  w-full  flex justify-center flex-row xl:flex-wrap items-center gap-5 " id="contRuletas">
                 {ruletas?.map((ruleta, index) => (
                     <Ruleta
                         key={index}
@@ -87,7 +87,10 @@ export default function GeneradorRuleta() {
                     ></Ruleta>
                 ))}
             </div>
-            {mobilePc?<BotonComenzar></BotonComenzar>:""}
-        </div>
+            
+                {mobilePc?<div className="w-full h-1/5 flex justify-center mt-5 "><BotonComenzar></BotonComenzar></div>:""}
+            </div>
+            
+        
     );
 }

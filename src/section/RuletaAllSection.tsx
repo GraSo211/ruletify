@@ -73,11 +73,14 @@ export default function RuletaAllSection() {
             )}
           </CSSTransition>
         </SwitchTransition>
+        
         :
+
+
         sortear ? (
-          <GanadoresSection ref={nodeRef}></GanadoresSection>
+          <GanadoresSection></GanadoresSection>
         ) : (
-          <GestorDatosSorteo ref={nodeRef}></GestorDatosSorteo>
+          <GestorDatosSorteo></GestorDatosSorteo>
         )
         }
 

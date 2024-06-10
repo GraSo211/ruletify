@@ -22,14 +22,14 @@ export default function SelectorGanadores() {
 
   return (
     <>
-      <div className=" w-full  h-auto p-3 flex flex-col gap-3 justify-center   ">
-        <h2 className="font-bold text-left text-lg tablet:text-3xl hd:text-xl full-hd:text-3xl 2k:text-4xl  text-pretty">
+      <div className=" w-full   p-3 flex flex-col gap-3 justify-center   ">
+        <h2 className="font-bold text-left text-sm md:text-base 2xl:text-3xl  text-pretty">
           <b>SELECCIONA LA CANTIDAD DE GANADORES:</b>
         </h2>
         <select
           id="selectGanadores"
           onChange={handleChange}
-          className="text-black font-bold w-full hd:text-sm full-hd:text-2xl 2k:text-3xl appearance-none p-3 hover:animate-pulse "
+          className="text-black font-bold w-full 2xl:text-xl appearance-none p-3 hover:animate-pulse "
         >
           <option value={1}>1 GANADOR</option>
           <option value={2}>2 GANADORES</option>

@@ -85,23 +85,23 @@ export default function GestorOpciones() {
   };
 
   return (
-    <div className="flex flex-col  items-center  overflow-hidden  gap-3  h-full   w-full  p-3  ">
-      <h2 className="font-bold text-lg tablet:text-3xl hd:text-xl full-hd:text-3xl 2k:text-4xl text-left self-start text-balance  ">
+    <div className="flex flex-col overflow-hidden  gap-3  h-full   w-full  p-3  ">
+      <h2 className="font-bold text-left text-sm md:text-base 2xl:text-3xl  text-pretty  ">
         <b>INGRESA LAS OPCIONES A SORTEAR:</b>
       </h2>
 
-      <div className="flex flex-col items-center gap-3 max-h-full  w-full flex-1 overflow-hidden">
+      <div className="flex flex-col items-center gap-3 max-h-full   w-full flex-1 overflow-hidden">
         <div className="flex flex-row w-full  ">
           <input
             ref={inputOpcionRef}
             onChange={handleText}
             onKeyDown={handleSubmitInput}
             placeholder="Escribe algo!"
-            className="text-black  font-bold hd:text-sm full-hd:text-2xl 2k:text-3xl appearance-none p-3 w-[92%] "
+            className="text-black  font-bold 2xl:text-xl  appearance-none p-3 w-full "
           ></input>
           <button
             onClick={handleClickInput}
-            className=" w-[15%] full-hd:w-[10%] 2k:w-[8%] aspect-square flex justify-center items-center   bg-blue-600 border font-bold text-xl hover:bg-blue-700 border-white"
+            className=" aspect-square flex justify-center items-center   bg-blue-600 border font-bold text-xl hover:bg-blue-700 border-white"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

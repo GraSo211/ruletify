@@ -36,7 +36,8 @@ export default function Ruleta({
     nroAleatorizarVuelta = -nroAleatorizarVuelta;
   }
   useEffect(() => {
-    const vueltas = 360 * 20 - 120 - anguloGanador - centrador + nroAleatorizarVuelta;
+    const vueltaTiempo = (window.innerWidth >= 1000)? 20 : 10;
+    const vueltas = 360 * vueltaTiempo - 120 - anguloGanador - centrador + nroAleatorizarVuelta;
     const vueltasProperty: string = vueltas + "deg";
     if (ruletaRef.current) {
       ruletaRef.current.style.setProperty("--giro", vueltasProperty);
@@ -114,14 +115,14 @@ export default function Ruleta({
       setTimeout(() => {
         contRuleta?.classList.add("hidden");
         contRuletaSiguiente?.classList.remove("hidden");
-      }, 800);
+      }, 500);
     }
     if (cantGanador === idNumber + 1){
       
       setTimeout(()=>{
         document.getElementById("genRuletas")?.classList.add("hidden")
         setSortear(true);
-      },800
+      },500
       )
       
     } 

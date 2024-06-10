@@ -65,15 +65,15 @@ export default function BotonComenzar() {
   return (
     <button
       id="boton"
-      className="text-white font-bold  bg-gray-700 hover:bg-[#000000] p-1 group/boton  clip  relative text-xl hover:text-2xl hd:text-2xl hd:hover:text-4xl full-hd:text-3xl full-hd:hover:text-5xl mb-10  w-[95%] h-48 "
+      className="text-white font-bold min-h-20   bg-gray-700 hover:bg-[#000000] p-1 group/boton  clip  relative text-xl  hover:text-2xl  xl:text-2xl xl:hover:text-3xl  w-[95%] "
       onClick={handleClick}
     >
-      <div className="w-full h-full grid place-content-center clip bg-[#0b0b0b] group/boton group-hover/boton:bg-[#000000]">
+      <div className="w-full h-full  grid place-content-center clip bg-[#0b0b0b] group/boton group-hover/boton:bg-[#000000]">
         <canvas
           id="canvas-boton"
           height={100}
           width={100}
-          className="absolute  w-full h-full top-0"
+          className="absolute  w-full h-full  top-0"
         ></canvas>
         <p className="">Girar!</p>
       </div>
