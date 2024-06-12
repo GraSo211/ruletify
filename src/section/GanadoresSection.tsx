@@ -6,17 +6,13 @@ import ConfettiGenerator from "confetti-js";
 
 const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
   const {
-    arrayColoresGanadores,
-    arrayGanadores,
+    ganadores,
     cantGanadores,
-    setArrayColores,
-    setArrayColoresGanadores,
-    setArrayGanadores,
+    setGanadores,
     setCantGanadores,
-    setArrayOpciones,
+    setOpciones,
     setSortear,
     setMensajeG,
-    mobilePc
   } = useContext(SorteoContext);
 
   useEffect(() => {
@@ -61,11 +57,9 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
     void div2?.offsetWidth;
     div1?.classList.add("animateUpReversa");
     div2?.classList.add("animateDownReversa");
-    if(!mobilePc){
-      setArrayColores([]);
-      setArrayOpciones([]);
-      setArrayColoresGanadores([]);
-      setArrayGanadores([]);
+    if(!true){
+      setOpciones([]);
+      setGanadores([]);
       setCantGanadores(1);
       
       const canvas = document.getElementById("ruleta0") as HTMLCanvasElement;
@@ -95,10 +89,8 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
       div2?.classList.add("animateDown");
 
 
-      setArrayColores([]);
-      setArrayOpciones([]);
-      setArrayColoresGanadores([]);
-      setArrayGanadores([]);
+      setOpciones([]);
+      setGanadores([]);
       setCantGanadores(1);
       
       const canvas = document.getElementById("ruleta0") as HTMLCanvasElement;
@@ -152,11 +144,11 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
             </tr>
           </thead>
           <tbody className="">
-            {arrayGanadores.map((opcion, index) => (
+            {ganadores.map((opcion, index) => (
               <FilaGanador
                 key={index}
-                nombre={opcion}
-                color={arrayColoresGanadores[index]}
+                nombre={opcion.opcion}
+                color={opcion.color}
                 numero={index + 1}
               ></FilaGanador>
             ))}

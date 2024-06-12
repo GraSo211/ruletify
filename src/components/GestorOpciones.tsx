@@ -4,13 +4,7 @@ import CartelProblema from "../components/CartelProblema";
 import { useContext, useRef, useState, type ChangeEvent } from "react";
 import SorteoContext from "../context/SorteoContext";
 export default function GestorOpciones() {
-  const {
-    arrayOpciones,
-    setArrayOpciones,
-    arrayColores,
-    setArrayColores,
-    setMensajeG,
-  } = useContext(SorteoContext);
+  const { opciones, cantGanadores,setCantGanadores , setOpciones, setMensajeG } = useContext(SorteoContext);
 
   const [texto, setTexto] = useState("");
 
@@ -38,11 +32,18 @@ export default function GestorOpciones() {
   }
 
   const eliminarOpcion = (index: number) => {
-    const nuevasOpciones = arrayOpciones.filter((_, i) => i !== index);
-    const nuevosColores = arrayColores.filter((_, i) => i !== index);
-    setArrayOpciones(nuevasOpciones);
-    setArrayColores(nuevosColores);
-    colores.current = colores.current.filter((_, i) => i !== index);
+    const nuevasOpciones = opciones.filter((_, i) => i !== index);
+    setOpciones(nuevasOpciones);
+    if(nuevasOpciones.length > 2 && nuevasOpciones.length <= cantGanadores+1){
+      const select = document.getElementById("selectGanadores") as HTMLSelectElement | null;
+      if (select) select.value = (nuevasOpciones.length-1).toString();
+      setCantGanadores((nuevasOpciones.length-1))
+    }
+    if(nuevasOpciones.length <= 2){
+      const select = document.getElementById("selectGanadores") as HTMLSelectElement | null;
+      if (select) select.value = "1";
+      setCantGanadores(1)
+    }
   };
 
   const handleText = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,24 +59,27 @@ export default function GestorOpciones() {
   const handleClickInput = () => {
     const color = getRandomColor();
 
-    const arrayColoresMediador = [...arrayColores];
-    const arrayOpcionesMediador = [...arrayOpciones];
+    const opcionesAct = [...opciones];
+    for (let i = 0; i <= opciones.length; i++) {
+      if (opciones[i]) {
+        if (
+          opciones[i].opcion.includes(texto) ||
+          texto === "" ||
+          texto === " "
+        ) {
+          if (texto === "" || texto === " ") setMensajeG("Ingresa un valor!");
+          if (opciones[i].opcion.includes(texto))
+            setMensajeG("El valor ingresado ya existe!");
+          document.getElementById("cartelProblema")?.classList.remove("hidden");
+          document.getElementById("cartelProblema")?.classList.add("fadeM");
 
-    if (arrayOpciones.includes(texto) || texto === "" || texto === " ") {
-      if (texto === "" || texto === " ") setMensajeG("Ingresa un valor!");
-      if (arrayOpciones.includes(texto))
-        setMensajeG("El valor ingresado ya existe!");
-      document.getElementById("cartelProblema")?.classList.remove("hidden");
-      document.getElementById("cartelProblema")?.classList.add("fadeM");
-
-      return;
+          return;
+        }
+      }
     }
 
-    arrayOpcionesMediador.push(texto);
-    setArrayOpciones(arrayOpcionesMediador);
-
-    arrayColoresMediador.push(color);
-    setArrayColores(arrayColoresMediador);
+    opcionesAct.push({ opcion: texto, color: color });
+    setOpciones(opcionesAct);
 
     if (inputOpcionRef.current) {
       inputOpcionRef.current.value = "";
@@ -124,11 +128,11 @@ export default function GestorOpciones() {
 
         <div className="w-full  h-full relative  overflow-x-hidden overflow-y-scroll barra-scroll  ">
           <ul className="w-full   flex flex-col   gap-5 pr-5    ">
-            {arrayOpciones.map((opcion, index) => (
+            {opciones.map((opcion, index) => (
               <ElementoOpcion
                 key={index}
-                texto={opcion}
-                color={arrayColores[index]}
+                texto={opcion.opcion}
+                color={opcion.color}
                 eliminarOpcion={eliminarOpcion}
                 index={index}
               ></ElementoOpcion>

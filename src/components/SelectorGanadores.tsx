@@ -1,12 +1,12 @@
 import { useContext, type ChangeEvent } from "react";
 import SorteoContext from "../context/SorteoContext";
 export default function SelectorGanadores() {
-  const { setCantGanadores, arrayOpciones, setMensajeG } =
+  const { setCantGanadores, opciones, cantGanadores,setMensajeG } =
     useContext(SorteoContext);
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const valorSelect = parseInt(e.currentTarget.value);
-    if (valorSelect < arrayOpciones.length) {
+    if (valorSelect < opciones.length) {
       setCantGanadores(valorSelect);
       return;
     }

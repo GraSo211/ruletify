@@ -6,25 +6,25 @@ import SorteoContext from "../context/SorteoContext";
 import BotonComenzar from "../components/BotonComenzar";
 
 const GestorDatosSorteo = forwardRef<HTMLDivElement>((props, ref) => {
-  const { mobilePc } = useContext(SorteoContext);
+  const {  } = useContext(SorteoContext);
 
   return (
     <div
       ref={ref}
-      className="bg-[#121317] w-full lg:w-[33%]  p-5  flex flex-col justify-start items-center gap-3"
+      className="bg-[#0f1012] w-full lg:w-[33%]  p-5  flex flex-col justify-start items-center gap-3"
       id="gestorDatos"
     >
       <div className="divRainbow w-full  p-1 flex">
-        <span className="w-full h-full flex justify-center items-center p-3 bg-[#121317]">
+        <span className="w-full h-full flex justify-center items-center p-3 bg-[#0f1012]">
           <h1 className="h1 font-bold text-4xl sm:text-5xl  2xl:text-6xl">
-            RULETIFY
+            RULETIFY  
           </h1>
         </span>
       </div>
 
       <SelectorGanadores />
       <GestorOpciones />
-      {!mobilePc ? <BotonComenzar /> : ""}
+      {!true ? <BotonComenzar /> : ""}
     </div>
   );
 });

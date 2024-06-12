@@ -4,7 +4,7 @@ import "./BotonComenzar.css";
 // @ts-ignore
 import ConfettiGenerator from "confetti-js";
 export default function BotonComenzar() {
-  const { setMensajeG, arrayOpciones, cantGanadores, setSortear } =
+  const { setMensajeG, opciones, cantGanadores, setSortear } =
     useContext(SorteoContext);
   useEffect(() => {
     const canvasBoton = document.getElementById("canvas-boton");
@@ -35,7 +35,7 @@ export default function BotonComenzar() {
   }, []);
 
   const handleClick = () => {
-    if (arrayOpciones.length < 2) {
+    if (opciones.length < 2) {
       setMensajeG("Ingresa al menos 2 opciones.");
       document.getElementById("cartelProblema")?.classList.remove("hidden");
       document.getElementById("cartelProblema")?.classList.add("fadeM");
@@ -43,7 +43,7 @@ export default function BotonComenzar() {
     }
     document.getElementById("gestorDatos")?.classList.add("pointer-events-none")
     document.getElementById("genRuletas")?.classList.add("pointer-events-none")
-    const canvas = document.getElementById("ruleta0");
+    const canvas = document.getElementById("ruleta0") as HTMLCanvasElement;;
     canvas?.classList.add("girar-ruleta");
     canvas?.classList.remove("ruleta");
 
@@ -59,13 +59,14 @@ export default function BotonComenzar() {
         constRuleta?.classList.add("hidden");
       }
     }
+      
     
   };
 
   return (
     <button
       id="boton"
-      className="text-white font-bold min-h-20   bg-gray-700 hover:bg-[#000000] p-1 group/boton  clip  relative text-xl  hover:text-2xl  xl:text-2xl xl:hover:text-3xl  w-[95%] "
+      className="text-white font-bold min-h-20 max-h-40   bg-gray-700 hover:bg-[#000000] p-1 group/boton  clip  relative text-xl  hover:text-2xl  xl:text-2xl xl:hover:text-3xl  w-[95%] "
       onClick={handleClick}
     >
       <div className="w-full h-full  grid place-content-center clip bg-[#0b0b0b] group/boton group-hover/boton:bg-[#000000]">

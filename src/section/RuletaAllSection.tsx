@@ -6,29 +6,22 @@ import GanadoresSection from "./GanadoresSection";
 import "./RuletaAllSection.css";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 
+type Opciones = {
+  opcion: string;
+  color:string;
+}
+
+
 export default function RuletaAllSection() {
   const [cantGanadores, setCantGanadores] = useState(1);
-  const [arrayOpciones, setArrayOpciones] = useState<string[]>([]);
-  const [arrayColores, setArrayColores] = useState<string[]>([]);
-  const [arrayGanadores, setArrayGanadores] = useState<string[]>([]);
-  const [arrayColoresGanadores, setArrayColoresGanadores] = useState<string[]>(
-    []
-  );
+  const [opciones, setOpciones] = useState<Opciones[]>([]);
+  const [ganadores, setGanadores] = useState<Opciones[]>([]);
   const [mensajeG, setMensajeG] = useState<string>("");
-  const [mobilePc, setMobilePc] = useState<boolean>(true);
   const [sortear, setSortear] = useState<boolean>(false);
-
   const nodeRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (window.innerWidth < 1000) {
-      setMobilePc(false);
-    } else {
-      setMobilePc(true);
-    }
-  }, [window.innerWidth]);
+ 
 
-  console.log("sortear",sortear)
 
 
 
@@ -38,22 +31,17 @@ export default function RuletaAllSection() {
         value={{
           cantGanadores,
           setCantGanadores,
-          arrayOpciones,
-          setArrayOpciones,
-          arrayGanadores,
-          setArrayGanadores,
-          arrayColoresGanadores,
-          setArrayColoresGanadores,
-          arrayColores,
-          setArrayColores,
+          opciones,
+          setOpciones,
+          ganadores,
+          setGanadores,
           mensajeG,
           setMensajeG,
-          mobilePc,
           sortear,
           setSortear,
         }}
       >
-        {mobilePc?
+        {true?
           <SwitchTransition>
           <CSSTransition
             key={sortear ? "true" : "false"}

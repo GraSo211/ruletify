@@ -4,93 +4,97 @@ import Ruleta from "../components/Ruleta";
 import SorteoContext from "../context/SorteoContext";
 import BotonComenzar from "../components/BotonComenzar";
 
-
 interface RuletaObject {
-    arrayOpciones: string[];
-    arrayColores: string[];
-    nroGanador: number;
-    nombreGanador: string;
+  opciones: Opciones[];
+  nroGanador: number;
+  nombreGanador: string;
+  colorGanador: string;
 }
 
+type Opciones = {
+  opcion: string;
+  color: string;
+};
+
 export default function GeneradorRuleta() {
-    const {cantGanadores, setArrayGanadores,  setArrayColoresGanadores, arrayColores, arrayOpciones, mobilePc} = useContext(SorteoContext)
-    const [tamañoRuleta, setTamañoRuleta] = useState<number>(0);
-    const [ruletas, setRuletas] = useState<RuletaObject[]>([]);
+  const { cantGanadores, setGanadores, opciones } = useContext(SorteoContext);
 
-    useEffect(() => {
-        const nuevasRuletas: RuletaObject[] = [];
-        let nuevoTamañoRuleta: number;
-        let opcionesRestantes = [...arrayOpciones];
-        let coloresRestantes = [...arrayColores];
-        let ganadoresArrayIntermedio = []
-        let ganadoresColoresArrayIntermedio = []
-        let cantidadTamaño = 1;
+  const [ruletas, setRuletas] = useState<RuletaObject[]>([{opciones: opciones, nroGanador: 0, nombreGanador: "",colorGanador: ""}]);
+  const [number, setNumber] = useState<number>(0);
+  useEffect(() => {
+    const ruletasAct: RuletaObject[] = [];
+    let opcionesRestantes = [...opciones];
+    const ganadoresP: Opciones[] = [];
 
-        for (let i = 0; i < cantGanadores; i++) {
-            const nroGanador: number = Math.floor(Math.random() * opcionesRestantes.length);
-            const colorDelGanador: string = coloresRestantes[nroGanador];
-            const nombreGanador: string = opcionesRestantes[nroGanador];
-            
-            nuevasRuletas.push({ arrayOpciones: opcionesRestantes, arrayColores: coloresRestantes, nroGanador: nroGanador, nombreGanador: nombreGanador });
-            opcionesRestantes = opcionesRestantes.filter((elem) => elem !== nombreGanador);
-            coloresRestantes = coloresRestantes.filter((elem) => elem !== colorDelGanador);
-            ganadoresArrayIntermedio.push(nombreGanador);
-            ganadoresColoresArrayIntermedio.push(colorDelGanador);
-        }
+    for (let i = 0; i < cantGanadores; i++) {
+      //decidir ganador
+      const nroGanador: number = Math.floor(
+        Math.random() * opcionesRestantes.length
+      );
+      const colorDelGanador: string = opcionesRestantes[nroGanador]?.color;
+      const nombreGanador: string = opcionesRestantes[nroGanador]?.opcion;
+      //agregar ruletas creadas
+      ruletasAct.push({
+        opciones: opcionesRestantes,
+        nroGanador: nroGanador,
+        nombreGanador: nombreGanador,
+        colorGanador: colorDelGanador,
+      });
 
+      //sacamos las opciones que ganaron
+      opcionesRestantes = opcionesRestantes.filter(
+        (_, index) => index !== nroGanador
+      );
+      //agregamos los ganadores al array de ganadores
+      ganadoresP.push({ opcion: nombreGanador, color: colorDelGanador });
+    }
 
-        if(ganadoresArrayIntermedio.length !==0){
-            setArrayGanadores(ganadoresArrayIntermedio);
-            setArrayColoresGanadores(ganadoresColoresArrayIntermedio);
-        }
+    if (ganadoresP.length > 0) {
+      setGanadores(ganadoresP);
+    }
+    setRuletas(ruletasAct);
+  }, [cantGanadores, opciones]);
 
-        switch (cantGanadores) {
-            case 1:
-                cantidadTamaño = 3;
-                break;
-            case 2:
-                cantidadTamaño = 4;
-                break;
-            default:
-                cantidadTamaño = 5;
-        }
-        if(window.innerWidth <= 500){
-            nuevoTamañoRuleta = Math.abs(window.innerWidth / 1.1)
-        }else if(window.innerWidth <= 1500){
-            nuevoTamañoRuleta = Math.abs(window.innerWidth  /cantidadTamaño*0.9)
-        }else if(window.innerWidth <= 3000){
-            nuevoTamañoRuleta = window.innerWidth / cantidadTamaño
-        }else{
-            nuevoTamañoRuleta = window.innerWidth *5
-        }
+  return (
+    <div
+      className="h-full w-full  xl:w-[67%]  xl:flex flex-col  items-center  relative     hidden  "
+      id="genRuletas"
+    >
+      <div className="flex flex-row  w-full bg-[#0f1012]   justify-center items-center p-3  gap-5">
+        {ruletas?.map((ruleta, index) => (
+          <Ruleta
+            key={index}
+            id={index.toString()}
+            opcionesP={ruleta.opciones}
+            nroGanador={ruleta.nroGanador}
+            nombreGanador={ruleta.nombreGanador}
+            anchoAlto={window.innerWidth / 20}
+            cantGanador={cantGanadores}
+          ></Ruleta>
+        ))}
+      </div>
 
+      <div
+        className="h-full  w-full  flex justify-center p-1  flex-row xl:flex-wrap items-center gap-5 "
+        id="contRuletas"
+      >
+        <Ruleta
+          id={"0"}
+          opcionesP={ruletas[number].opciones}
+          nroGanador={ruletas[number].nroGanador}
+          nombreGanador={ruletas[number].nombreGanador}
+          anchoAlto={window.innerWidth / 3}
+          cantGanador={cantGanadores}
+        ></Ruleta>
+      </div>
 
-        setTamañoRuleta(nuevoTamañoRuleta);
-        setRuletas(nuevasRuletas);
-    }, [cantGanadores, arrayOpciones, arrayColores]);
-
-
-
-    return (
-        <div className="h-full w-full  xl:w-[67%]  xl:flex flex-col  items-center  relative p-3    hidden  " id="genRuletas">
-            <div className="h-full  w-full  flex justify-center flex-row xl:flex-wrap items-center gap-5 " id="contRuletas">
-                {ruletas?.map((ruleta, index) => (
-                    <Ruleta
-                        key={index}
-                        id={index.toString()}
-                        arrayOpciones={ruleta.arrayOpciones}
-                        arrayColores={ruleta.arrayColores}
-                        nroGanador={ruleta.nroGanador}
-                        nombreGanador={ruleta.nombreGanador}
-                        anchoAlto={tamañoRuleta}
-                        cantGanador={cantGanadores}
-                    ></Ruleta>
-                ))}
-            </div>
-            
-                {mobilePc?<div className="w-full h-1/5 flex justify-center mt-5 "><BotonComenzar></BotonComenzar></div>:""}
-            </div>
-            
-        
-    );
+      {true ? (
+        <div className="w-full h-1/5 flex justify-center mt-5 ">
+          <BotonComenzar></BotonComenzar>
+        </div>
+      ) : (
+        ""
+      )}
+    </div>
+  );
 }

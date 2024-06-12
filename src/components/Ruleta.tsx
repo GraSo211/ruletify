@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useRef } from "react";
 import "../styles/sorteo.css";
 import SorteoContext from "../context/SorteoContext";
 
+type Opciones = {
+  opcion: string;
+  color: string;
+};
 interface RuletaProps {
   id: string;
-  arrayOpciones: string[];
-  arrayColores: string[];
+  opcionesP: Opciones[];
   nroGanador: number;
   nombreGanador: string;
   anchoAlto: number;
@@ -14,19 +17,18 @@ interface RuletaProps {
 
 export default function Ruleta({
   id,
-  arrayOpciones,
-  arrayColores,
+  opcionesP,
   nroGanador,
   nombreGanador,
   anchoAlto,
   cantGanador,
 }: RuletaProps) {
   const ruletaRef = useRef<HTMLCanvasElement>(null);
-  const { setSortear,  } = useContext(SorteoContext);
-
-  const anguloInicialGanador = (360 / arrayOpciones.length) * nroGanador;
-  const anguloFinalGanador = anguloInicialGanador + 360 / arrayOpciones.length;
-  const anguloGanador = nroGanador * (360 / arrayOpciones.length);
+  const { setSortear } = useContext(SorteoContext);
+  
+  const anguloInicialGanador = (360 / opcionesP.length) * nroGanador;
+  const anguloFinalGanador = anguloInicialGanador + 360 / opcionesP.length;
+  const anguloGanador = nroGanador * (360 / opcionesP.length);
   const diferencia = anguloFinalGanador - anguloInicialGanador;
   const centrador = diferencia / 2 - 30;
 
@@ -36,22 +38,26 @@ export default function Ruleta({
     nroAleatorizarVuelta = -nroAleatorizarVuelta;
   }
   useEffect(() => {
-    const vueltaTiempo = (window.innerWidth >= 1000)? 20 : 10;
-    const vueltas = 360 * vueltaTiempo - 120 - anguloGanador - centrador + nroAleatorizarVuelta;
+    const vueltaTiempo = window.innerWidth >= 1000 ? 20 : 10;
+    const vueltas =
+      360 * vueltaTiempo -
+      120 -
+      anguloGanador -
+      centrador +
+      nroAleatorizarVuelta;
+
     const vueltasProperty: string = vueltas + "deg";
     if (ruletaRef.current) {
       ruletaRef.current.style.setProperty("--giro", vueltasProperty);
     }
-  }, [arrayOpciones]);
-  
+  }, [opcionesP]);
 
   function creadorSorteo(
     id: string,
     posicionX: number,
     posicionY: number,
     radio: number,
-    arrayOpciones: string[],
-    arrayColores: string[]
+    opciones: Opciones[]
   ) {
     const canvas = document.getElementById("ruleta" + id) as HTMLCanvasElement;
     const ctx = canvas?.getContext("2d");
@@ -62,14 +68,13 @@ export default function Ruleta({
 
     if (ctx) {
       let anguloFinalInicial = 0;
-      for (let i = 0; i < arrayOpciones.length; i++) {
+      for (let i = 0; i < opciones.length; i++) {
         const anguloInicio = anguloFinalInicial;
-        const anguloFinal =
-          ((360 / arrayOpciones.length) * (i + 1) * Math.PI) / 180;
+        const anguloFinal = ((360 / opciones.length) * (i + 1) * Math.PI) / 180;
         anguloFinalInicial = anguloFinal;
 
         ctx.beginPath();
-        const color: string = arrayColores[i];
+        const color: string = opciones[i].color;
 
         ctx.fillStyle = color;
 
@@ -88,10 +93,9 @@ export default function Ruleta({
       anchoAlto / 2,
       anchoAlto / 2,
       anchoAlto * 0.48,
-      arrayOpciones,
-      arrayColores
+      opcionesP
     );
-  }, [arrayOpciones]);
+  }, [opcionesP]);
 
   function handleAnimationEnd(id: string) {
     const idNumber = parseInt(id);
@@ -117,20 +121,17 @@ export default function Ruleta({
         contRuletaSiguiente?.classList.remove("hidden");
       }, 500);
     }
-    if (cantGanador === idNumber + 1){
-      
-      setTimeout(()=>{
-        document.getElementById("genRuletas")?.classList.add("hidden")
+    if (cantGanador === idNumber + 1) {
+      setTimeout(() => {
+        document.getElementById("genRuletas")?.classList.add("hidden");
         setSortear(true);
-      },500
-      )
-      
-    } 
+      }, 500);
+    }
   }
 
   return (
     <div
-      className="flex flex-col p-3 relative justify-center items-center  after:absolute after:top-[7px] after:z-10 after:left-[calc(50%-32px)] after:border-t-white after:border-l-transparent after:border-r-transparent after:border-l-[32px] after:border-r-[32px] after:border-t-[46px] after:content-[''] before:absolute before:top-[6px] before:z-10 before:left-[calc(50%-35px)] before:border-t-gray-500 before:border-l-transparent before:border-r-transparent before:border-l-[35px] before:border-r-[35px] before:border-t-[50px] before:content-['']"
+      className="flex flex-col p-1 relative justify-center items-center"
       id={"contenedor-ruleta-" + id}
     >
       <canvas
@@ -138,7 +139,7 @@ export default function Ruleta({
         height={anchoAlto}
         id={"ruleta" + id}
         ref={ruletaRef}
-        className="rounded-full  bg-gray-300 "
+        className="rounded-full relative bg-gray-300 "
         onAnimationEnd={() => {
           handleAnimationEnd(id);
         }}
