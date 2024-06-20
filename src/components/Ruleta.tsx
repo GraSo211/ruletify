@@ -64,7 +64,7 @@ const Ruleta = function Ruleta({ id, opcionesP, nombreGanador, anchoAlto, girar,
         }
     }, [reset]);
 
-    function girarRuleta(canvasRef: React.RefObject<HTMLCanvasElement>, spanGanadorRef: React.RefObject<HTMLCanvasElement>, manejarFinDeGiro: () => void, vueltas: number, id: string | undefined) {
+     function girarRuleta(canvasRef: React.RefObject<HTMLCanvasElement>, spanGanadorRef: React.RefObject<HTMLCanvasElement>, manejarFinDeGiro: () => void, vueltas: number, id: string | undefined) {
         if (!canvasRef.current || !spanGanadorRef.current) return;
         const canvas = canvasRef.current;
         canvas.classList.add("girar-ruleta");

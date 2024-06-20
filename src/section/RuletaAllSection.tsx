@@ -40,26 +40,36 @@ export default function RuletaAllSection() {
                     cantRuletasFinalizadas,
                     setCantRuletasFinalizadas,
                     reset,
-                    setReset
+                    setReset,
                 }}
             >
-                <SwitchTransition>
-                    <CSSTransition
-                        key={finRuleta ? "true" : "false"}
-                        nodeRef={nodeRef}
-                        addEndListener={(done) => {
-                            const node = nodeRef.current;
-                            if (node) {
-                                node.addEventListener("transitionend", done, false);
-                            }
-                        }}
-                        classNames="fade"
-                    >
-                        {finRuleta ? <GanadoresSection ref={nodeRef}></GanadoresSection> : <GestorDatosSorteo ref={nodeRef}></GestorDatosSorteo>}
-                    </CSSTransition>
-                </SwitchTransition>
-
-                <GeneradorRuleta></GeneradorRuleta>
+                {window.innerWidth > 1024 ? (
+                    <>
+                        <SwitchTransition>
+                            <CSSTransition
+                                key={finRuleta ? "true" : "false"}
+                                nodeRef={nodeRef}
+                                addEndListener={(done) => {
+                                    const node = nodeRef.current;
+                                    if (node) {
+                                        node.addEventListener("transitionend", done, false);
+                                    }
+                                }}
+                                classNames="fade"
+                            >
+                                {finRuleta ? <GanadoresSection ref={nodeRef}></GanadoresSection> : <GestorDatosSorteo ref={nodeRef}></GestorDatosSorteo>}
+                            </CSSTransition>
+                        </SwitchTransition>
+                        <GeneradorRuleta></GeneradorRuleta>
+                    </>
+                ) : finRuleta ? (
+                    <GanadoresSection></GanadoresSection>
+                ) : (
+                    <>
+                        <GestorDatosSorteo></GestorDatosSorteo>
+                        <GeneradorRuleta></GeneradorRuleta>
+                    </>
+                )}
             </SorteoContext.Provider>
         </div>
     );
