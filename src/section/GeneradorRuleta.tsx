@@ -101,6 +101,7 @@ export default function GeneradorRuleta() {
                         vueltas={ruleta.vueltas}
                         tamañoTexto="text-sm xl:text-3xl"
                         filtroGris={index !== 0 ? "ruleta" : ""}
+                        anchoPestillo={40}
                     />
                 ))}
             </div>
@@ -117,6 +118,7 @@ export default function GeneradorRuleta() {
                     vueltas={ruletaActual.vueltas}
                     tamañoTexto="text-5xl"
                     filtroGris=""
+                    anchoPestillo={80}
                 />
             </div>
             {window.innerWidth > 1024 && (

@@ -18,6 +18,7 @@ interface RuletaProps {
     vueltas: number;
     tamañoTexto: string;
     filtroGris: string;
+    anchoPestillo: number
 }
 
 function crearCirculo(ctx: CanvasRenderingContext2D, posicionX: number, posicionY: number, radio: number, opciones: Opciones[], incremento: number) {
@@ -42,7 +43,7 @@ function rellenarCirculo(ctx: CanvasRenderingContext2D, color: string, posicionX
 
 
 
-const Ruleta = function Ruleta({ id, opcionesP, nombreGanador, anchoAlto, girar, manejarFinDeGiro, vueltas, tamañoTexto, filtroGris }: RuletaProps) {
+const Ruleta = function Ruleta({ id, opcionesP, nombreGanador, anchoAlto, girar, manejarFinDeGiro, vueltas, tamañoTexto, filtroGris, anchoPestillo }: RuletaProps) {
     const { sortear,finRuleta, cantRuletasFinalizadas, setCantRuletasFinalizadas, cantGanadores, setReset, reset } = useContext(SorteoContext);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const spanGanadorRef = useRef<HTMLCanvasElement>(null);
@@ -105,6 +106,7 @@ const Ruleta = function Ruleta({ id, opcionesP, nombreGanador, anchoAlto, girar,
     }, [girar]);
     return (
         <div className="flex flex-col p-1 relative justify-center  items-center">
+            <img src="./public/triangulo.png" width={anchoPestillo} className="absolute -top-2 left-50 z-[60]"></img>
             <canvas width={anchoAlto} height={anchoAlto} className={"rounded-full relative  bg-white " + filtroGris} ref={canvasRef}></canvas>
             <span ref={spanGanadorRef} id={"ruleta-" + id} className={"text-center text-white absolute   font-bold  hidden " + tamañoTexto}>
                 {nombreGanador}
