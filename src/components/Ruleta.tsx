@@ -1,6 +1,7 @@
 import React, { forwardRef, useContext, useEffect, useRef } from "react";
 import "../styles/sorteo.css";
 import SorteoContext from "../context/SorteoContext";
+import Image from "astro/components/Image.astro";
 
 type Opciones = {
     opcion: string;
@@ -106,7 +107,7 @@ const Ruleta = function Ruleta({ id, opcionesP, nombreGanador, anchoAlto, girar,
     }, [girar]);
     return (
         <div className="flex flex-col p-1 relative justify-center  items-center">
-            <img src="./public/triangulo.png" width={anchoPestillo} className="absolute -top-2 left-50 z-[60]"></img>
+            <img src="/triangulo.png" width={anchoPestillo}  className="absolute -top-2 left-50 z-[60]" alt="pestillo"></img>
             <canvas width={anchoAlto} height={anchoAlto} className={"rounded-full relative  bg-white " + filtroGris} ref={canvasRef}></canvas>
             <span ref={spanGanadorRef} id={"ruleta-" + id} className={"text-center text-white absolute   font-bold  hidden " + tamañoTexto}>
                 {nombreGanador}
