@@ -4,143 +4,133 @@ import CartelProblema from "../components/CartelProblema";
 import { useContext, useRef, useState, type ChangeEvent } from "react";
 import SorteoContext from "../context/SorteoContext";
 export default function GestorOpciones() {
-  const { opciones, cantGanadores,setCantGanadores , setOpciones, setMensajeG } = useContext(SorteoContext);
+    const { opciones, cantGanadores, setCantGanadores, setOpciones, setMensajeG } = useContext(SorteoContext);
 
-  const [texto, setTexto] = useState("");
+    const [texto, setTexto] = useState("");
 
-  const colores = useRef<string[]>([]);
+    const colores = useRef<string[]>([]);
 
-  const inputOpcionRef = useRef<HTMLInputElement>(null);
+    const inputOpcionRef = useRef<HTMLInputElement>(null);
 
-  function getRandomColor() {
-    const threshold = 10;
-    const numAzarHue = Math.random();
-    const numAzarSat = Math.random() * 0.3 + 0.4;
-    const numAzarVal = Math.random() * 0.1 + 0.9;
-    const colorRgb = hsvToRgb(numAzarHue, numAzarSat, numAzarVal);
-    const colorHex = rgbToHex(colorRgb);
+    function getRandomColor() {
+        const threshold = 10;
+        const numAzarHue = Math.random();
+        const numAzarSat = Math.random() * 0.3 + 0.4;
+        const numAzarVal = Math.random() * 0.1 + 0.9;
+        const colorRgb = hsvToRgb(numAzarHue, numAzarSat, numAzarVal);
+        const colorHex = rgbToHex(colorRgb);
 
-    for (let col of colores.current) {
-      const existingColorRgb = hexToRgb(col);
-      if (colorDistance(colorRgb, existingColorRgb) < threshold) {
-        return getRandomColor();
-      }
-    }
-
-    colores.current.push(colorHex);
-    return colorHex;
-  }
-
-  const eliminarOpcion = (index: number) => {
-    const nuevasOpciones = opciones.filter((_, i) => i !== index);
-    setOpciones(nuevasOpciones);
-    if(nuevasOpciones.length > 2 && nuevasOpciones.length <= cantGanadores+1){
-      const select = document.getElementById("selectGanadores") as HTMLSelectElement | null;
-      if (select) select.value = (nuevasOpciones.length-1).toString();
-      setCantGanadores((nuevasOpciones.length-1))
-    }
-    if(nuevasOpciones.length <= 2){
-      const select = document.getElementById("selectGanadores") as HTMLSelectElement | null;
-      if (select) select.value = "1";
-      setCantGanadores(1)
-    }
-  };
-
-  const handleText = (e: ChangeEvent<HTMLInputElement>) => {
-    setTexto(e.currentTarget.value.toUpperCase());
-  };
-
-  const handleSubmitInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleClickInput();
-    }
-  };
-
-  const handleClickInput = () => {
-    const color = getRandomColor();
-
-    const opcionesAct = [...opciones];
-    for (let i = 0; i <= opciones.length; i++) {
-      if (opciones[i]) {
-        if (
-          opciones[i].opcion.includes(texto) ||
-          texto === "" ||
-          texto === " "
-        ) {
-          if (texto === "" || texto === " ") setMensajeG("Ingresa un valor!");
-          if (opciones[i].opcion.includes(texto))
-            setMensajeG("El valor ingresado ya existe!");
-          document.getElementById("cartelProblema")?.classList.remove("hidden");
-          document.getElementById("cartelProblema")?.classList.add("fadeM");
-
-          return;
+        for (let col of colores.current) {
+            const existingColorRgb = hexToRgb(col);
+            if (colorDistance(colorRgb, existingColorRgb) < threshold) {
+                return getRandomColor();
+            }
         }
+
+        colores.current.push(colorHex);
+        return colorHex;
+    }
+
+    const eliminarOpcion = (index: number) => {
+        const nuevasOpciones = opciones.filter((_, i) => i !== index);
+        setOpciones(nuevasOpciones);
+        if (nuevasOpciones.length > 2 && nuevasOpciones.length <= cantGanadores + 1) {
+            //CAMBIAR POR REF A SELECT DE SELECTORGANADORES
+
+            const select = document.getElementById("selectGanadores") as HTMLSelectElement | null;
+
+            if (select) select.value = (nuevasOpciones.length - 1).toString();
+            setCantGanadores(nuevasOpciones.length - 1);
+        }
+        if (nuevasOpciones.length <= 2) {
+            //CAMBIAR POR REF A SELECT DE SELECTORGANADORES
+
+            const select = document.getElementById("selectGanadores") as HTMLSelectElement | null;
+            if (select) select.value = "1";
+            setCantGanadores(1);
+        }
+    };
+
+    const handleText = (e: ChangeEvent<HTMLInputElement>) => {
+        setTexto(e.currentTarget.value.toUpperCase());
+    };
+
+    const handleSubmitInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            handleClickInput();
+        }
+    };
+
+    const handleClickInput = () => {
+      const color = getRandomColor();
+      const opcionesAct = [...opciones];
+  
+      if (texto === undefined || texto === null || texto.trim() === "") {
+          setMensajeG("Ingresa un valor!");
+          return;
       }
-    }
-
-    opcionesAct.push({ opcion: texto, color: color });
-    setOpciones(opcionesAct);
-
-    if (inputOpcionRef.current) {
-      inputOpcionRef.current.value = "";
-      setTexto("");
-      inputOpcionRef.current.focus();
-    }
+  
+      for (let i = 0; i < opciones.length; i++) {
+          if (opciones[i].opcion === texto) {
+              setMensajeG("El valor ingresado ya existe!");
+              return;
+          }
+      }
+  
+      opcionesAct.push({ opcion: texto, color: color });
+      setOpciones(opcionesAct);
+  
+      if (inputOpcionRef.current) {
+          inputOpcionRef.current.value = "";
+          setTexto("");
+          inputOpcionRef.current.focus();
+      }
   };
+  
+    return (
+        <div className="flex flex-col overflow-hidden  gap-3  h-full   w-full  p-3  ">
+            <h2 className="font-bold text-left text-sm md:text-base 2xl:text-3xl  text-pretty  ">
+                <b>INGRESA LAS OPCIONES A SORTEAR:</b>
+            </h2>
 
-  return (
-    <div className="flex flex-col overflow-hidden  gap-3  h-full   w-full  p-3  ">
-      <h2 className="font-bold text-left text-sm md:text-base 2xl:text-3xl  text-pretty  ">
-        <b>INGRESA LAS OPCIONES A SORTEAR:</b>
-      </h2>
+            <div className="flex flex-col items-center gap-3 max-h-full   w-full flex-1 overflow-hidden">
+                <div className="flex flex-row w-full  ">
+                    <input
+                        ref={inputOpcionRef}
+                        onChange={handleText}
+                        onKeyDown={handleSubmitInput}
+                        placeholder="Escribe algo!"
+                        className="text-black  font-bold 2xl:text-xl  appearance-none p-3 w-full "
+                    ></input>
+                    <button onClick={handleClickInput} className=" aspect-square flex justify-center items-center   bg-blue-600 border font-bold text-xl hover:bg-blue-700 border-white">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="icon icon-tabler icon-tabler-plus self-center"
+                            width="48"
+                            height="48"
+                            viewBox="0 0 24 24"
+                            strokeWidth="3"
+                            stroke="#635994"
+                            fill="none"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 5l0 14" />
+                            <path d="M5 12l14 0" />
+                        </svg>
+                    </button>
+                </div>
 
-      <div className="flex flex-col items-center gap-3 max-h-full   w-full flex-1 overflow-hidden">
-        <div className="flex flex-row w-full  ">
-          <input
-            ref={inputOpcionRef}
-            onChange={handleText}
-            onKeyDown={handleSubmitInput}
-            placeholder="Escribe algo!"
-            className="text-black  font-bold 2xl:text-xl  appearance-none p-3 w-full "
-          ></input>
-          <button
-            onClick={handleClickInput}
-            className=" aspect-square flex justify-center items-center   bg-blue-600 border font-bold text-xl hover:bg-blue-700 border-white"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-plus self-center"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              strokeWidth="3"
-              stroke="#635994"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M12 5l0 14" />
-              <path d="M5 12l14 0" />
-            </svg>
-          </button>
+                <div className="w-full  h-full relative  overflow-x-hidden overflow-y-scroll barra-scroll  ">
+                    <ul className="w-full   flex flex-col   gap-5 pr-5    ">
+                        {opciones.map((opcion, index) => (
+                            <ElementoOpcion key={index} texto={opcion.opcion} color={opcion.color} eliminarOpcion={eliminarOpcion} index={index}></ElementoOpcion>
+                        ))}
+                    </ul>
+                    <CartelProblema></CartelProblema>
+                </div>
+            </div>
         </div>
-
-        <div className="w-full  h-full relative  overflow-x-hidden overflow-y-scroll barra-scroll  ">
-          <ul className="w-full   flex flex-col   gap-5 pr-5    ">
-            {opciones.map((opcion, index) => (
-              <ElementoOpcion
-                key={index}
-                texto={opcion.opcion}
-                color={opcion.color}
-                eliminarOpcion={eliminarOpcion}
-                index={index}
-              ></ElementoOpcion>
-            ))}
-            <CartelProblema></CartelProblema>
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }

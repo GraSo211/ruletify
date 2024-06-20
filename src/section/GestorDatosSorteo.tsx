@@ -11,11 +11,11 @@ const GestorDatosSorteo = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
       ref={ref}
-      className="bg-[#0f1012] w-full lg:w-[33%]  p-5  flex flex-col justify-start items-center gap-3"
+      className="  w-full lg:w-[33%]  p-5  flex flex-col justify-start items-center bg-[#0f1012] gap-3"
       id="gestorDatos"
     >
       <div className="divRainbow w-full  p-1 flex">
-        <span className="w-full h-full flex justify-center items-center p-3 bg-[#0f1012]">
+        <span className="w-full h-full flex justify-center items-center bg-[#0f1012] p-3 ">
           <h1 className="h1 font-bold text-4xl sm:text-5xl  2xl:text-6xl">
             RULETIFY  
           </h1>
@@ -24,7 +24,7 @@ const GestorDatosSorteo = forwardRef<HTMLDivElement>((props, ref) => {
 
       <SelectorGanadores />
       <GestorOpciones />
-      {!true ? <BotonComenzar /> : ""}
+      {window.innerWidth<1000 ? <BotonComenzar /> : ""}
     </div>
   );
 });

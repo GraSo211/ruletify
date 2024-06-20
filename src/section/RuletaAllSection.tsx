@@ -7,73 +7,60 @@ import "./RuletaAllSection.css";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 type Opciones = {
-  opcion: string;
-  color:string;
-}
-
+    opcion: string;
+    color: string;
+};
 
 export default function RuletaAllSection() {
-  const [cantGanadores, setCantGanadores] = useState(1);
-  const [opciones, setOpciones] = useState<Opciones[]>([]);
-  const [ganadores, setGanadores] = useState<Opciones[]>([]);
-  const [mensajeG, setMensajeG] = useState<string>("");
-  const [sortear, setSortear] = useState<boolean>(false);
-  const nodeRef = useRef<HTMLDivElement>(null);
+    const [cantGanadores, setCantGanadores] = useState(1);
+    const [opciones, setOpciones] = useState<Opciones[]>([]);
+    const [ganadores, setGanadores] = useState<Opciones[]>([]);
+    const [mensajeG, setMensajeG] = useState<string>("");
+    const [sortear, setSortear] = useState<boolean>(false);
+    const [finRuleta, setFinRuleta] = useState<boolean>(false);
+    const [cantRuletasFinalizadas, setCantRuletasFinalizadas] = useState(1);
+    const nodeRef = useRef<HTMLDivElement>(null);
+    const [reset, setReset] = useState<boolean>(false);
+    return (
+        <div className="w-full h-full flex flex-row">
+            <SorteoContext.Provider
+                value={{
+                    cantGanadores,
+                    setCantGanadores,
+                    opciones,
+                    setOpciones,
+                    ganadores,
+                    setGanadores,
+                    mensajeG,
+                    setMensajeG,
+                    sortear,
+                    setSortear,
+                    finRuleta,
+                    setFinRuleta,
+                    cantRuletasFinalizadas,
+                    setCantRuletasFinalizadas,
+                    reset,
+                    setReset
+                }}
+            >
+                <SwitchTransition>
+                    <CSSTransition
+                        key={finRuleta ? "true" : "false"}
+                        nodeRef={nodeRef}
+                        addEndListener={(done) => {
+                            const node = nodeRef.current;
+                            if (node) {
+                                node.addEventListener("transitionend", done, false);
+                            }
+                        }}
+                        classNames="fade"
+                    >
+                        {finRuleta ? <GanadoresSection ref={nodeRef}></GanadoresSection> : <GestorDatosSorteo ref={nodeRef}></GestorDatosSorteo>}
+                    </CSSTransition>
+                </SwitchTransition>
 
- 
-
-
-
-
-  return (
-    <div className="w-full h-full flex flex-row">
-      <SorteoContext.Provider
-        value={{
-          cantGanadores,
-          setCantGanadores,
-          opciones,
-          setOpciones,
-          ganadores,
-          setGanadores,
-          mensajeG,
-          setMensajeG,
-          sortear,
-          setSortear,
-        }}
-      >
-        {true?
-          <SwitchTransition>
-          <CSSTransition
-            key={sortear ? "true" : "false"}
-            nodeRef={nodeRef}
-            addEndListener={(done) => {
-              const node = nodeRef.current;
-              if (node) {
-                node.addEventListener("transitionend", done, false);
-              }
-            }}
-            classNames="fade"
-          >
-            {sortear ? (
-              <GanadoresSection ref={nodeRef}></GanadoresSection>
-            ) : (
-              <GestorDatosSorteo ref={nodeRef}></GestorDatosSorteo>
-            )}
-          </CSSTransition>
-        </SwitchTransition>
-        
-        :
-
-
-        sortear ? (
-          <GanadoresSection></GanadoresSection>
-        ) : (
-          <GestorDatosSorteo></GestorDatosSorteo>
-        )
-        }
-
-        <GeneradorRuleta></GeneradorRuleta>
-      </SorteoContext.Provider>
-    </div>
-  );
+                <GeneradorRuleta></GeneradorRuleta>
+            </SorteoContext.Provider>
+        </div>
+    );
 }

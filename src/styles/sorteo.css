@@ -1,6 +1,6 @@
 .girar-ruleta {
-    animation: girarRuleta 5s cubic-bezier(.15,.25,0,1);
-    animation-fill-mode: forwards;
+    animation: girarRuleta 5s cubic-bezier(.15,.25,0,1) forwards;
+
 }
 @keyframes girarRuleta {
     from {
@@ -12,11 +12,13 @@
 }   
 
 
-.ruleta {
+.ruleta{
     filter: grayscale(95%)
 }
 
 .fadeM{
+    display: grid;
+    place-content: center;
     animation: fade 2s ease-in-out  0s normal 1 both ;
 }
 

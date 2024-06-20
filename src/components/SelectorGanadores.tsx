@@ -1,8 +1,8 @@
-import { useContext, type ChangeEvent } from "react";
+import { useContext, useRef, type ChangeEvent } from "react";
 import SorteoContext from "../context/SorteoContext";
 export default function SelectorGanadores() {
-  const { setCantGanadores, opciones, cantGanadores,setMensajeG } =
-    useContext(SorteoContext);
+  const { setCantGanadores, opciones, cantGanadores,setMensajeG } =useContext(SorteoContext);
+  const selectCantGanadoresRef = useRef<HTMLSelectElement>(null) 
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const valorSelect = parseInt(e.currentTarget.value);
@@ -11,12 +11,7 @@ export default function SelectorGanadores() {
       return;
     }
     setMensajeG("Ingresa más opciones.");
-    document.getElementById("cartelProblema")?.classList.remove("hidden");
-    document.getElementById("cartelProblema")?.classList.add("fadeM");
-    const select = document.getElementById(
-      "selectGanadores"
-    ) as HTMLSelectElement | null;
-    if (select) select.value = "1";
+    if (selectCantGanadoresRef.current) selectCantGanadoresRef.current.value = "1";
     setCantGanadores(1);
   };
 
@@ -27,7 +22,7 @@ export default function SelectorGanadores() {
           <b>SELECCIONA LA CANTIDAD DE GANADORES:</b>
         </h2>
         <select
-          id="selectGanadores"
+          ref={selectCantGanadoresRef}
           onChange={handleChange}
           className="text-black font-bold w-full 2xl:text-xl appearance-none p-3 hover:animate-pulse "
         >

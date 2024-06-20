@@ -1,23 +1,32 @@
-import { useContext } from "react";
+import { useContext, useEffect, useReducer, useRef } from "react";
 import SorteoContext from "../context/SorteoContext";
 
 export default function CartelProblema() {
-    const { mensajeG } = useContext(SorteoContext)
+    const spanCartelProblema = useRef<HTMLSpanElement>(null)
+    const { mensajeG, setMensajeG } = useContext(SorteoContext)
     const handleAnimacionEnd = () => {
-    const mensaje = document.getElementById("cartelProblema");
-    if (mensaje) {
-      mensaje.classList.remove("fadeM");
-      mensaje.classList.add("hidden");
+    if (spanCartelProblema.current) {
+      spanCartelProblema.current.classList.remove("fadeM");
+      spanCartelProblema.current.classList.add("hidden");
+      setMensajeG("")
     }
   };
+  useEffect(()=>{
+    if (mensajeG && spanCartelProblema.current) {
+      spanCartelProblema.current.classList.add("fadeM");
+      spanCartelProblema.current.classList.remove("hidden");
+      
+    }
+  },[mensajeG])
 
   return (
     <span
       onAnimationEnd={handleAnimacionEnd}
-      className="w-full h-full absolute  place-content-center hidden  bg-black  font-bold text-3xl text-center  backdrop-blur bg-opacity-50 transition-transform  z-50"
-      id="cartelProblema"
+      className="w-full h-full absolute  top-0 left-0 hidden   bg-black  font-bold text-3xl text-center  backdrop-blur bg-opacity-50 transition-transform  z-[1000]"
+      ref={spanCartelProblema}
+  
     >
-      {mensajeG}
+      <p className="w-full h-full">{mensajeG}</p>
     </span>
   );
 }

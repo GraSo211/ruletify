@@ -1,4 +1,5 @@
 
+
 import React, { createContext, useState, } from 'react';
 import type { ReactNode, Dispatch, SetStateAction } from 'react';
 
@@ -18,20 +19,32 @@ interface SorteoContextType {
     setMensajeG: Dispatch<SetStateAction<string>>;
     sortear: boolean;
     setSortear: Dispatch<SetStateAction<boolean>>;
+    finRuleta: boolean;
+    setFinRuleta: Dispatch<SetStateAction<boolean>>;
+    cantRuletasFinalizadas: number;
+    setCantRuletasFinalizadas: Dispatch<SetStateAction<number>>;
+    reset: boolean;
+    setReset: Dispatch<SetStateAction<boolean>>;
 }
 
 
 const defaultValues: SorteoContextType = {
     cantGanadores: 1,
     setCantGanadores: () => {},
-    opciones: [{opcion:"",color:""}],
+    opciones: [],
     setOpciones: () => {},
-    ganadores: [{opcion:"",color:""}],
+    ganadores: [],
     setGanadores: () => {},
     mensajeG: "",
     setMensajeG: () => {},
     sortear: false,
     setSortear: () => {},
+    finRuleta: false,
+    setFinRuleta: () => {},
+    cantRuletasFinalizadas: 1,
+    setCantRuletasFinalizadas: () => {},
+    reset: false,
+    setReset: () => {},
 
 };
 
@@ -43,10 +56,13 @@ export const SorteoProvider = ({ children }: { children: ReactNode }) => {
     const [ganadores, setGanadores] = useState<Opciones[]>([]);
     const [mensajeG, setMensajeG] = useState<string>("");
     const [sortear, setSortear] = useState<boolean>(false);
+    const [finRuleta, setFinRuleta] = useState<boolean>(false);
+    const [cantRuletasFinalizadas, setCantRuletasFinalizadas] = useState<number>(1);
+    const [reset, setReset] = useState<boolean>(false);
     
 
     return (
-        <SorteoContext.Provider value={{ cantGanadores, setCantGanadores, opciones, setOpciones, ganadores, setGanadores, mensajeG, setMensajeG, sortear, setSortear, }}>
+        <SorteoContext.Provider value={{ cantGanadores, setCantGanadores, opciones, setOpciones, ganadores, setGanadores, mensajeG, setMensajeG, sortear, setSortear, finRuleta, setFinRuleta, cantRuletasFinalizadas,setCantRuletasFinalizadas, reset,setReset }}>
             {children}
         </SorteoContext.Provider>
     );  
