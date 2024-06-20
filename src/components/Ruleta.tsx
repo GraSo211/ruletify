@@ -107,7 +107,7 @@ const Ruleta = function Ruleta({ id, opcionesP, nombreGanador, anchoAlto, girar,
     }, [girar]);
     return (
         <div className="flex flex-col p-1 relative justify-center  items-center">
-            <img src="/triangulo.png" width={anchoPestillo}  className="absolute -top-2 left-50 z-[60]" alt="pestillo"></img>
+            <img src="/triangulo.png" width={anchoPestillo}  className={window.innerWidth >1024?"absolute -top-2 left-50 z-[60]":"absolute top-0 left-50 z-[60]"} alt="pestillo"></img>
             <canvas width={anchoAlto} height={anchoAlto} className={"rounded-full relative  bg-white " + filtroGris} ref={canvasRef}></canvas>
             <span ref={spanGanadorRef} id={"ruleta-" + id} className={"text-center text-white absolute   font-bold  hidden " + tamañoTexto}>
                 {nombreGanador}
