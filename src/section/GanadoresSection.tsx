@@ -100,7 +100,7 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
 
             <button
                 onClick={handleReset}
-                className="relative z-40 w-[95%] min-h-16 rounded-2xl bg-gradient-to-r from-accent-pink to-accent-violet font-display text-2xl tracking-[0.12em] text-white shadow-glow-pink hover:brightness-110 active:scale-95 transition p-[2px]"
+                className="relative z-40 w-[95%] min-h-16 rounded-2xl bg-linear-to-r from-accent-pink to-accent-violet font-display text-2xl tracking-[0.12em] text-white shadow-glow-pink hover:brightness-110 active:scale-95 transition p-[2px]"
             >
                 <span className="flex h-full w-full items-center justify-center rounded-2xl bg-night-900/30 px-4 animate-pulse">
                     SORTEAR DE NUEVO

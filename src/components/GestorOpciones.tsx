@@ -97,11 +97,11 @@ export default function GestorOpciones() {
                         onChange={handleText}
                         onKeyDown={handleSubmitInput}
                         placeholder="Escribe una opción..."
-                        className="flex-1 rounded-xl bg-night-700 border border-white/10 text-white placeholder:text-muted font-medium appearance-none p-3 2xl:text-xl focus:border-accent-pink focus:ring-1 focus:ring-accent-pink outline-none transition"
+                        className="flex-1 rounded-xl bg-night-700 border border-white/10 text-white placeholder:text-muted font-medium appearance-none p-3 2xl:text-xl focus:border-accent-pink focus:ring-1 focus:ring-accent-pink outline-hidden transition"
                     />
                     <button
                         onClick={handleClickInput}
-                        className="aspect-square flex justify-center items-center rounded-xl bg-gradient-to-br from-accent-violet to-accent-cyan text-white font-bold text-2xl hover:brightness-110 active:scale-95 transition shadow-glow-violet"
+                        className="aspect-square flex justify-center items-center rounded-xl bg-linear-to-br from-accent-violet to-accent-cyan text-white font-bold text-2xl hover:brightness-110 active:scale-95 transition shadow-glow-violet"
                         aria-label="Agregar opción"
                     >
                         <svg

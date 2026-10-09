@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+    /* ---------- Colores ---------- */
+    --color-night-900: #080a10;
+    --color-night-800: #0d1018;
+    --color-night-700: #131724;
+    --color-night-600: #1a1f2e;
+    --color-night-500: #232a3d;
+
+    --color-accent-pink: #ff2e7d;
+    --color-accent-violet: #8b5cf6;
+    --color-accent-cyan: #22d3ee;
+    --color-accent-amber: #f59e0b;
+    --color-accent-emerald: #10b981;
+
+    --color-muted: #94a3b8;
+
+    /* ---------- Tipografías ---------- */
+    --font-display: "Bebas Neue", cursive;
+    --font-body: "Space Grotesk", sans-serif;
+
+    /* ---------- Sombras ---------- */
+    --shadow-glow-pink: 0 0 30px rgba(255, 46, 125, 0.35);
+    --shadow-glow-violet: 0 0 30px rgba(139, 92, 246, 0.35);
+    --shadow-glow-cyan: 0 0 30px rgba(34, 211, 238, 0.35);
+    --shadow-glow-amber: 0 0 30px rgba(245, 158, 11, 0.35);
+    --shadow-inner-glow: inset 0 0 40px rgba(255, 255, 255, 0.03);
+
+    /* ---------- Animaciones ---------- */
+    --animate-spin-slow: spin 12s linear infinite;
+    --animate-float: float 6s ease-in-out infinite;
+    --animate-pulse-glow: pulseGlow 2.5s ease-in-out infinite;
+    --animate-shimmer: shimmer 2.5s linear infinite;
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulseGlow {
+        0%, 100% { box-shadow: 0 0 20px rgba(255, 46, 125, 0.25); }
+        50% { box-shadow: 0 0 45px rgba(255, 46, 125, 0.55); }
+    }
+
+    @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
+}
+
+/* Comportamiento previo de Tailwind 3: puntero de mano en botones */
+@layer base {
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}

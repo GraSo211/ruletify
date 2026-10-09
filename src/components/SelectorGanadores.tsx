@@ -27,7 +27,7 @@ export default function SelectorGanadores() {
             ref={selectCantGanadoresRef}
             onChange={handleChange}
             id="selectGanadores"
-            className="w-full appearance-none rounded-xl bg-night-700 border border-white/10 text-white font-bold p-3 pr-10 2xl:text-xl focus:border-accent-pink focus:ring-1 focus:ring-accent-pink outline-none transition cursor-pointer hover:bg-night-600"
+            className="w-full appearance-none rounded-xl bg-night-700 border border-white/10 text-white font-bold p-3 pr-10 2xl:text-xl focus:border-accent-pink focus:ring-1 focus:ring-accent-pink outline-hidden transition cursor-pointer hover:bg-night-600"
           >
             <option value={1}>1 ganador</option>
             <option value={2}>2 ganadores</option>

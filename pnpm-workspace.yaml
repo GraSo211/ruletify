@@ -1,0 +1,7 @@
+onlyBuiltDependencies:
+  - "@tailwindcss/oxide"
+overrides:
+  '@babel/runtime@<7.26.10': ^7.26.10
+  mdast-util-to-hast@>=13.0.0 <13.2.1: ^13.2.1
+  picomatch@<2.3.2: ^2.3.2
+  source-map-js@>=1.0.0 <1.2.2: ^1.2.2

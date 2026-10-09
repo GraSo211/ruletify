@@ -63,7 +63,7 @@ export default function BotonComenzar() {
     return (
         <button
             id="boton"
-            className="relative z-10 w-[95%] max-w-xl min-h-20 max-h-40 rounded-2xl overflow-hidden bg-gradient-to-r from-accent-pink via-accent-violet to-accent-cyan p-[2px] shadow-glow-pink transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] group/boton"
+            className="relative z-10 w-[95%] max-w-xl min-h-20 max-h-40 rounded-2xl overflow-hidden bg-linear-to-r from-accent-pink via-accent-violet to-accent-cyan p-[2px] shadow-glow-pink transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] group/boton"
             onClick={handleClick}
         >
             <div className="w-full h-full grid place-content-center rounded-2xl bg-night-900/90 relative overflow-hidden">
