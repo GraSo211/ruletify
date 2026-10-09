@@ -5,7 +5,7 @@ import RuletaAllSection from "../section/RuletaAllSection";
 ---
 
 <Layout title="Ruletify">
-    <main class="flex flex-row justify-around items-center relative overflow-hidden">
+    <main class="relative min-h-screen w-full overflow-hidden">
         <Preloader></Preloader>
         <RuletaAllSection client:only />
     </main>
@@ -17,7 +17,7 @@ import RuletaAllSection from "../section/RuletaAllSection";
         main {
             margin: auto;
             width: 100%;
-            height: 100%;
+            min-height: 100vh;
         }
     </style>
 </Layout>

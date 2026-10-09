@@ -7,7 +7,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -18,17 +18,25 @@ const { title } = Astro.props;
       name="description"
       content="¡Bienvenido a Ruletify! La plataforma en línea que te permite realizar sorteos de manera fácil y rápida. Crea sorteos personalizados con un máximo de 5 ganadores. ¡Prueba Ruletify!"
     />
-	<meta name="author" content="GraSo" />
-	<meta name="copyright" content="© GraSo " />
-	<meta name="keywords" content="sorteos, sorteo en línea, sorteos personalizados, ruleta de premios, plataforma de sorteos, concursos, premios, ganadores, sorteos en redes sociales, marketing digital, atraer audiencia, ruletify, ruleta">
-	<link rel="canonical" href="https://ruletify.vercel.app" />
+    <meta name="author" content="GraSo" />
+    <meta name="copyright" content="© GraSo " />
+    <meta name="keywords" content="sorteos, sorteo en línea, sorteos personalizados, ruleta de premios, plataforma de sorteos, concursos, premios, ganadores, sorteos en redes sociales, marketing digital, atraer audiencia, ruletify, ruleta">
+    <link rel="canonical" href="https://ruletify.vercel.app" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Facebook Meta Tags -->
     <meta property="og:url" content="https://ruletify.vercel.app" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Ruletify" />
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<meta name="description" content="¡Bienvenido a Ruletify! La plataforma en línea que te permite realizar sorteos de manera fácil y rápida. Crea sorteos personalizados con un máximo de 5 ganadores. ¡Prueba Ruletify!">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="description" content="¡Bienvenido a Ruletify! La plataforma en línea que te permite realizar sorteos de manera fácil y rápida. Crea sorteos personalizados con un máximo de 5 ganadores. ¡Prueba Ruletify!">
     <meta
       property="og:description"
       content="¡Bienvenido a Ruletify! La plataforma en línea que te permite realizar sorteos de manera fácil y rápida. Crea sorteos personalizados con un máximo de 5 ganadores. ¡Prueba Ruletify!"
@@ -53,29 +61,36 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
 
-  <body class="h-full ">
+  <body class="min-h-screen bg-night-900 text-slate-50 font-body antialiased selection:bg-accent-pink selection:text-white">
     <slot />
   </body>
 </html>
 <style is:global>
   :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      rgb(var(--accent-light)) 30%,
-      white 60%
-    );
+    --night-900: #080a10;
+    --night-800: #0d1018;
+    --night-700: #131724;
+    --night-600: #1a1f2e;
+    --night-500: #232a3d;
+    --accent-pink: #ff2e7d;
+    --accent-violet: #8b5cf6;
+    --accent-cyan: #22d3ee;
+    --accent-amber: #f59e0b;
+    --muted: #94a3b8;
   }
   html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-    background-size: 224px;
-    color: white;
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    background-color: var(--night-900);
+    background-image:
+      radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.12), transparent 35%),
+      radial-gradient(circle at 85% 80%, rgba(255, 46, 125, 0.10), transparent 35%),
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27200%27%20height%3D%27200%27%3E%3Cfilter%20id%3D%27n%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.65%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url%28%23n%29%27%20opacity%3D%270.05%27%2F%3E%3C%2Fsvg%3E");
+    background-size: cover, cover, 200px 200px;
+    color: #f8fafc;
     min-height: 100vh;
-    height: 100%;
+  }
+  body {
+    min-height: 100vh;
   }
   code {
     font-family:
@@ -87,5 +102,24 @@ const { title } = Astro.props;
       Bitstream Vera Sans Mono,
       Courier New,
       monospace;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent-pink);
+    outline-offset: 2px;
   }
 </style>

@@ -60,16 +60,13 @@ export default function GeneradorRuleta() {
         }
     }, [ruletas, indiceRuleta]);
 
-    
-
     const manejarFinDeGiro = () => {
-
         if (indiceRuleta < ruletas.length - 1) {
             setIndiceRuleta(indiceRuleta + 1);
         }
-        setCantRuletasFinalizadas(cantRuletasFinalizadas+1);
+        setCantRuletasFinalizadas(cantRuletasFinalizadas + 1);
 
-            if(cantGanadores == cantRuletasFinalizadas) setFinRuleta(true)
+        if (cantGanadores == cantRuletasFinalizadas) setFinRuleta(true)
     };
 
     function definirVueltas(opciones: Opciones[], nroGanador: number) {
@@ -87,8 +84,8 @@ export default function GeneradorRuleta() {
     }
 
     return (
-        <div className="h-full w-full xl:w-[67%] xl:flex flex-col items-start relative p-0 hidden" id="genRuletas">
-            <div className="flex flex-row w-full h-[30%] bg-[#0f1012] justify-evenly items-center p-3 gap-5">
+        <div className="relative z-10 min-h-screen w-full xl:w-[67%] flex-col items-start hidden xl:flex" id="genRuletas">
+            <div className="flex flex-row w-full min-h-[180px] bg-night-800/60 border-b border-white/5 justify-evenly items-center p-4 gap-4">
                 {ruletas.map((ruleta, index) => (
                     <Ruleta
                         key={index}
@@ -101,28 +98,30 @@ export default function GeneradorRuleta() {
                         vueltas={ruleta.vueltas}
                         tamañoTexto="text-sm xl:text-3xl"
                         filtroGris={index !== 0 ? "ruleta" : ""}
-                        anchoPestillo={window.innerWidth >1024? 40:20}
+                        anchoPestillo={window.innerWidth > 1024 ? 40 : 20}
                     />
                 ))}
             </div>
 
-            <div className="h-full w-full flex justify-center p-1 flex-row xl:flex-wrap items-center gap-5" id="contRuletas">
-                <Ruleta
-                    id="principal"
-                    opcionesP={ruletaActual.opciones || [{ opcion: "", color: "" }]}
-                    nombreGanador={ruletaActual.nombreGanador}
-                    anchoAlto={window.innerWidth < 1024 ? window.innerWidth / 1.1 : window.innerWidth / 3.5}
-                    cantGanador={cantGanadores}
-                    girar={sortear && indiceRuleta === ruletas.indexOf(ruletaActual)}
-                    manejarFinDeGiro={manejarFinDeGiro}
-                    vueltas={ruletaActual.vueltas}
-                    tamañoTexto="text-5xl"
-                    filtroGris=""
-                    anchoPestillo={window.innerWidth >1024? 80:40}
-                />
+            <div className="flex-1 w-full flex justify-center p-6 flex-row xl:flex-wrap items-center gap-6 relative" id="contRuletas">
+                <div className="relative p-8 rounded-full bg-night-800/40 border border-white/5 shadow-inner-glow">
+                    <Ruleta
+                        id="principal"
+                        opcionesP={ruletaActual.opciones || [{ opcion: "", color: "" }]}
+                        nombreGanador={ruletaActual.nombreGanador}
+                        anchoAlto={window.innerWidth < 1024 ? window.innerWidth / 1.1 : window.innerWidth / 3.5}
+                        cantGanador={cantGanadores}
+                        girar={sortear && indiceRuleta === ruletas.indexOf(ruletaActual)}
+                        manejarFinDeGiro={manejarFinDeGiro}
+                        vueltas={ruletaActual.vueltas}
+                        tamañoTexto="text-5xl"
+                        filtroGris=""
+                        anchoPestillo={window.innerWidth > 1024 ? 80 : 40}
+                    />
+                </div>
             </div>
             {window.innerWidth > 1024 && (
-                <div className="w-full h-1/5 flex justify-center mb-1">
+                <div className="w-full py-6 flex justify-center">
                     <BotonComenzar />
                 </div>
             )}

@@ -1,7 +1,6 @@
-import React, { forwardRef, useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import "../styles/sorteo.css";
 import SorteoContext from "../context/SorteoContext";
-import Image from "astro/components/Image.astro";
 
 type Opciones = {
     opcion: string;
@@ -42,31 +41,28 @@ function rellenarCirculo(ctx: CanvasRenderingContext2D, color: string, posicionX
     ctx.closePath();
 }
 
-
-
 const Ruleta = function Ruleta({ id, opcionesP, nombreGanador, anchoAlto, girar, manejarFinDeGiro, vueltas, tamañoTexto, filtroGris, anchoPestillo }: RuletaProps) {
-    const { sortear,finRuleta, cantRuletasFinalizadas, setCantRuletasFinalizadas, cantGanadores, setReset, reset } = useContext(SorteoContext);
+    const { sortear, finRuleta, cantRuletasFinalizadas, setCantRuletasFinalizadas, cantGanadores, setReset, reset } = useContext(SorteoContext);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const spanGanadorRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
-        if (!finRuleta && reset ) {
-            setTimeout(()=>{
+        if (!finRuleta && reset) {
+            setTimeout(() => {
                 const canvas = canvasRef.current;
                 if (!canvas) return;
                 const ctx = canvas.getContext("2d");
                 if (!ctx) return;
-                ctx.fillStyle = "white"
-            
-                ctx.fillRect(0,0 , canvas.width, canvas.height)
+                ctx.fillStyle = "#080a10";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
                 canvas.style.transform = `rotate(0deg)`;
-                spanGanadorRef.current?.classList.add("hidden")
-            },500)
+                spanGanadorRef.current?.classList.add("hidden");
+            }, 500)
             setReset(false)
         }
     }, [reset]);
 
-     function girarRuleta(canvasRef: React.RefObject<HTMLCanvasElement>, spanGanadorRef: React.RefObject<HTMLCanvasElement>, manejarFinDeGiro: () => void, vueltas: number, id: string | undefined) {
+    function girarRuleta(canvasRef: React.RefObject<HTMLCanvasElement>, spanGanadorRef: React.RefObject<HTMLCanvasElement>, manejarFinDeGiro: () => void, vueltas: number, id: string | undefined) {
         if (!canvasRef.current || !spanGanadorRef.current) return;
         const canvas = canvasRef.current;
         canvas.classList.add("girar-ruleta");
@@ -79,13 +75,12 @@ const Ruleta = function Ruleta({ id, opcionesP, nombreGanador, anchoAlto, girar,
             if (spanGanadorRef.current && id === undefined) {
                 spanGanadorRef.current.classList.remove("hidden");
             } else {
-               
                 document.getElementById("ruleta-principal")?.classList.remove("hidden");
             }
-    
+
             setTimeout(() => {
                 manejarFinDeGiro();
-                if(cantGanadores !== cantRuletasFinalizadas)document.getElementById("ruleta-principal")?.classList.add("hidden");
+                if (cantGanadores !== cantRuletasFinalizadas) document.getElementById("ruleta-principal")?.classList.add("hidden");
             }, 1000);
 
         }, 5000);
@@ -105,14 +100,30 @@ const Ruleta = function Ruleta({ id, opcionesP, nombreGanador, anchoAlto, girar,
             girarRuleta(canvasRef, spanGanadorRef, manejarFinDeGiro, vueltas, id);
         }
     }, [girar]);
+
     return (
-        <div className="flex flex-col p-1 relative justify-center  items-center">
-            <img src="/triangulo.png" width={anchoPestillo}  className={window.innerWidth >1024?"absolute -top-2 left-50 z-[60]":"absolute top-0 left-50 z-[60]"} alt="pestillo"></img>
-            <canvas width={anchoAlto} height={anchoAlto} className={"rounded-full relative  bg-white " + filtroGris} ref={canvasRef}></canvas>
-            <span ref={spanGanadorRef} id={"ruleta-" + id} className={"text-center text-white absolute   font-bold  hidden " + tamañoTexto}>
+        <div className="flex flex-col p-1 relative justify-center items-center">
+            <img
+                src="/triangulo.png"
+                width={anchoPestillo}
+                className="absolute -top-3 left-1/2 -translate-x-1/2 z-[60] drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]"
+                alt="pestillo"
+            />
+            <canvas
+                width={anchoAlto}
+                height={anchoAlto}
+                className={"rounded-full relative bg-night-900 ring-2 ring-white/10 shadow-glow-pink " + filtroGris}
+                ref={canvasRef}
+            ></canvas>
+            <span
+                ref={spanGanadorRef}
+                id={"ruleta-" + id}
+                className={"text-center text-white absolute font-bold px-4 py-2 rounded-full bg-black/40 backdrop-blur hidden " + tamañoTexto}
+            >
                 {nombreGanador}
             </span>
         </div>
     );
 };
+
 export default Ruleta;

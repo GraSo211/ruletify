@@ -11,20 +11,25 @@ const GestorDatosSorteo = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
       ref={ref}
-      className="  w-full lg:w-[33%]  p-5  flex flex-col justify-start items-center bg-[#0f1012] gap-3"
+      className="relative z-10 w-full lg:w-[33%] min-h-screen lg:min-h-0 p-5 lg:p-6 flex flex-col justify-start items-center gap-5 glass-panel border-r border-white/5"
       id="gestorDatos"
     >
-      <div className="divRainbow w-full  p-1 flex">
-        <span className="w-full h-full flex justify-center items-center bg-[#0f1012] p-3 ">
-          <h1 className="h1 font-bold text-4xl sm:text-5xl  2xl:text-6xl">
-            RULETIFY  
-          </h1>
-        </span>
-      </div>
+      <header className="w-full">
+        <div className="divRainbow rounded-xl p-[2px] shadow-glow-pink">
+          <span className="w-full h-full flex justify-center items-center bg-night-800 rounded-[10px] px-4 py-5">
+            <h1 className="h1 font-display tracking-wider text-5xl sm:text-6xl 2xl:text-7xl">
+              RULETIFY
+            </h1>
+          </span>
+        </div>
+        <p className="text-muted text-center mt-2 text-sm 2xl:text-base">
+          Crea sorteos al azar con estilo
+        </p>
+      </header>
 
       <SelectorGanadores />
       <GestorOpciones />
-      {window.innerWidth<1000 ? <BotonComenzar /> : ""}
+      {window.innerWidth < 1000 ? <BotonComenzar /> : ""}
     </div>
   );
 });

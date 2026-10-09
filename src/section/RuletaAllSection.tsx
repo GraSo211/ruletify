@@ -22,7 +22,12 @@ export default function RuletaAllSection() {
     const nodeRef = useRef<HTMLDivElement>(null);
     const [reset, setReset] = useState<boolean>(false);
     return (
-        <div className="w-full h-full flex flex-row">
+        <div className="relative min-h-screen w-full flex flex-col lg:flex-row bg-night-900">
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                <div className="absolute -top-20 -left-20 h-96 w-96 rounded-full bg-accent-violet/10 blur-3xl"></div>
+                <div className="absolute bottom-0 right-0 h-[28rem] w-[28rem] rounded-full bg-accent-pink/10 blur-3xl"></div>
+            </div>
+
             <SorteoContext.Provider
                 value={{
                     cantGanadores,

@@ -1,14 +1,21 @@
 .fade-enter {
     opacity: 0;
-  }
-  .fade-enter-active {
+    transform: translateY(12px);
+}
+
+.fade-enter-active {
     opacity: 1;
-    transition: opacity 500ms ease-in;
-  }
-  .fade-exit {
+    transform: translateY(0);
+    transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.fade-exit {
     opacity: 1;
-  }
-  .fade-exit-active {
+    transform: translateY(0);
+}
+
+.fade-exit-active {
     opacity: 0;
-    transition: opacity 500ms ease-in;
-  }
+    transform: translateY(-12px);
+    transition: opacity 400ms ease, transform 400ms ease;
+}

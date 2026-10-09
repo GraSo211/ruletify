@@ -3,9 +3,11 @@ import SorteoContext from "../context/SorteoContext";
 import "./BotonComenzar.css";
 // @ts-ignore
 import ConfettiGenerator from "confetti-js";
+
 export default function BotonComenzar() {
     const { setMensajeG, opciones, cantGanadores, setSortear } = useContext(SorteoContext);
     const canvasRef = useRef(null);
+
     useEffect(() => {
         if (canvasRef.current) {
             const confettiConfig = {
@@ -15,10 +17,10 @@ export default function BotonComenzar() {
                 animate: true,
                 props: ["square", "triangle", "line"],
                 colors: [
-                    [165, 104, 246],
-                    [230, 61, 135],
-                    [0, 199, 228],
-                    [253, 214, 126],
+                    [255, 46, 125],
+                    [139, 92, 246],
+                    [34, 211, 238],
+                    [245, 158, 11],
                 ],
                 clock: "50",
                 rotate: false,
@@ -43,32 +45,32 @@ export default function BotonComenzar() {
         for (let i = 0; i < canvasElements.length; i++) {
             canvasElements[i].classList.add("girar-ruleta");
         }
-        
-    setSortear(true)
-    if (window.innerWidth < 1000) {
-      
-      const ruletas = document.getElementById("genRuletas");
-      ruletas?.classList.remove("hidden");
-      ruletas?.classList.add("flex");
-      document.getElementById("gestorDatos")?.classList.add("hidden");
 
-      for (let i = 1; i < cantGanadores; i++) {
-        const constRuleta = document.getElementById("contenedor-ruleta-" + i);
-        constRuleta?.classList.add("hidden");
-      }
-    }
-      
+        setSortear(true)
+        if (window.innerWidth < 1000) {
+            const ruletas = document.getElementById("genRuletas");
+            ruletas?.classList.remove("hidden");
+            ruletas?.classList.add("flex");
+            document.getElementById("gestorDatos")?.classList.add("hidden");
+
+            for (let i = 1; i < cantGanadores; i++) {
+                const constRuleta = document.getElementById("contenedor-ruleta-" + i);
+                constRuleta?.classList.add("hidden");
+            }
+        }
     };
 
     return (
         <button
             id="boton"
-            className="text-white font-bold min-h-20 max-h-40   bg-gray-700 hover:bg-[#000000] p-1 group/boton  clip  relative text-xl  hover:text-2xl  xl:text-2xl xl:hover:text-3xl  w-[95%] "
+            className="relative z-10 w-[95%] max-w-xl min-h-20 max-h-40 rounded-2xl overflow-hidden bg-gradient-to-r from-accent-pink via-accent-violet to-accent-cyan p-[2px] shadow-glow-pink transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] group/boton"
             onClick={handleClick}
         >
-            <div className="w-full h-full  grid place-content-center clip bg-[#0b0b0b] group/boton group-hover/boton:bg-[#000000]">
-                <canvas id="canvas-boton" height={100} width={100} ref={canvasRef} className="absolute  w-full h-full  top-0"></canvas>
-                <p className="">Girar!</p>
+            <div className="w-full h-full grid place-content-center rounded-2xl bg-night-900/90 relative overflow-hidden">
+                <canvas id="canvas-boton" height={100} width={100} ref={canvasRef} className="absolute w-full h-full top-0 opacity-60"></canvas>
+                <span className="relative z-10 flex items-center gap-3 font-display text-3xl tracking-[0.15em] text-white uppercase">
+                    ¡Girar!
+                </span>
             </div>
         </button>
     );

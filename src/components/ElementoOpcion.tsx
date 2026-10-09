@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 interface ElementoOpcion {
   texto: string;
   color: string;
@@ -18,25 +16,26 @@ export default function ElementoOpcion({
   };
 
   return (
-    <li className="flex  w-full h-auto">
+    <li className="flex w-full h-auto group/item">
       <p
-        className="text-white rounded-sm font-bold p-3    w-full"
-        style={{ backgroundColor: color }}
+        className="text-white rounded-l-xl font-bold p-3 w-full shadow-inner-glow text-sm md:text-base truncate"
+        style={{ backgroundColor: color, textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
       >
         {texto}
       </p>
       <button
         onClick={handleEliminar}
-        className="aspect-square flex justify-center items-center  rounded-sm  bg-red-700 border border-red-800  hover:bg-red-900 "
+        className="aspect-square flex justify-center items-center rounded-r-xl bg-night-600 border-y border-r border-white/10 text-rose-400 hover:bg-rose-500 hover:text-white transition active:scale-95"
+        aria-label="Eliminar opción"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="icon icon-tabler icon-tabler-x"
-          width="40"
-          height="40"
+          width="28"
+          height="28"
           viewBox="0 0 24 24"
-          strokeWidth="3"
-          stroke="#f92f60"
+          strokeWidth="2.5"
+          stroke="currentColor"
           fill="none"
           strokeLinecap="round"
           strokeLinejoin="round"

@@ -17,9 +17,9 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
                 animate: true,
                 props: ["square", "triangle", "line"],
                 colors: [
-                    [165, 104, 246],
-                    [230, 61, 135],
-                    [0, 199, 228],
+                    [255, 46, 125],
+                    [139, 92, 246],
+                    [34, 211, 238],
                     [253, 214, 126],
                 ],
                 clock: "50",
@@ -35,7 +35,7 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
     }, []);
 
     const handleReset = () => {
-        setReset(true)
+        setReset(true);
         document.getElementById("genRuletas")?.classList.remove("pointer-events-none");
         const div1 = document.getElementById("preloader-1");
         const div2 = document.getElementById("preloader-2");
@@ -45,10 +45,8 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
         void div2?.offsetWidth;
         div1?.classList.add("animateUpReversa");
         div2?.classList.add("animateDownReversa");
-        
-        
-        
-        setTimeout(() => {  
+
+        setTimeout(() => {
             void div1?.offsetWidth;
             void div2?.offsetWidth;
             div1?.classList.remove("animateUpReversa");
@@ -60,39 +58,36 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
         }, 600);
         setSortear(false);
         setFinRuleta(false);
-        setTimeout(()=>{
-            
-        
+        setTimeout(() => {
             setCantGanadores(1);
             setGanadores([]);
             setOpciones([]);
-            
             setMensajeG("");
-            
-            setCantRuletasFinalizadas(1)
-            
-        },300)
-
-        
+            setCantRuletasFinalizadas(1);
+        }, 300);
     };
 
     return (
-        <div ref={ref} className="bg-[#0f1012]  w-full lg:w-[33%] h-full p-5 flex relative flex-col justify-between items-center gap-3">
-            <canvas ref={canvasGanador} className="w-full h-full top-0 absolute" height={100} width={100}></canvas>
-            <div className="divRainbow w-full p-1 flex">
-                <span className="w-full flex justify-center items-center p-3 bg-[#121317]">
-                    <h1 className="h1 font-bold text-4xl sm:text-5xl 2xl:text-6xl">RULETIFY</h1>
-                </span>
-            </div>
-            <div className="rounded-lg w-full border border-white h-auto p-3 flex flex-col gap-3 justify-center">
-                <h2 className="font-bold text-center text-xl sm:text-2xl text-pretty">
-                    <b>GANADORES</b>
+        <div ref={ref} className="relative z-10 w-full lg:w-[33%] min-h-screen lg:min-h-0 p-5 lg:p-6 flex flex-col justify-between items-center gap-5 glass-panel border-r border-white/5">
+            <canvas ref={canvasGanador} className="absolute inset-0 w-full h-full pointer-events-none" height={100} width={100}></canvas>
+
+            <header className="w-full">
+                <div className="divRainbow rounded-xl p-[2px] shadow-glow-pink">
+                    <span className="w-full flex justify-center items-center p-4 bg-night-800 rounded-[10px]">
+                        <h1 className="h1 font-display tracking-wider text-5xl sm:text-6xl 2xl:text-7xl">RULETIFY</h1>
+                    </span>
+                </div>
+            </header>
+
+            <div className="rounded-2xl w-full border border-white/10 bg-night-800/60 h-auto p-4 flex flex-col gap-4 justify-center shadow-inner-glow">
+                <h2 className="font-display text-center text-3xl sm:text-4xl text-white tracking-wide">
+                    GANADORES
                 </h2>
-                <table className="bg-[#191919] p-5 rounded-xl text-center overflow-hidden border-4">
-                    <thead className="font-bold text-xl sm:text-2xl">
-                        <tr className="bg-[#0000000a] h-10 2xl:h-16">
-                            <th>N°</th>
-                            <th>OPCIÓN</th>
+                <table className="w-full rounded-xl text-center overflow-hidden border-4 border-night-700">
+                    <thead className="font-bold text-lg sm:text-xl">
+                        <tr className="bg-night-700/80 h-10 2xl:h-14 text-muted">
+                            <th className="px-2 py-2">N°</th>
+                            <th className="px-2 py-2 text-left">OPCIÓN</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,12 +97,17 @@ const GanadoresSection = forwardRef<HTMLDivElement>((props, ref) => {
                     </tbody>
                 </table>
             </div>
-            <button onClick={handleReset} className="bg-[#0b0b0b] z-[40] rounded-xl font-bold border border-white hover:bg-[#000000] p-1 hover:text-2xl mb-10 w-[95%] h-[15%]">
-                <b className="animate-pulse">SORTEAR DE NUEVO</b>
+
+            <button
+                onClick={handleReset}
+                className="relative z-40 w-[95%] min-h-16 rounded-2xl bg-gradient-to-r from-accent-pink to-accent-violet font-display text-2xl tracking-[0.12em] text-white shadow-glow-pink hover:brightness-110 active:scale-95 transition p-[2px]"
+            >
+                <span className="flex h-full w-full items-center justify-center rounded-2xl bg-night-900/30 px-4 animate-pulse">
+                    SORTEAR DE NUEVO
+                </span>
             </button>
         </div>
     );
 });
 
 export default GanadoresSection;
-
